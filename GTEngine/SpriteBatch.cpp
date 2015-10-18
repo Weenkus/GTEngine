@@ -36,7 +36,7 @@ void SpriteBatch::end() {
 	createRenderBatches();
 }
 
-void SpriteBatch::draw(const glm::vec4& destRec, const glm::vec4& uvRect, GLuint texture, const Color& color, float depth) {
+void SpriteBatch::draw(const glm::vec4& destRec, const glm::vec4& uvRect, GLuint texture, const ColorRGBA8& color, float depth) {
 	Glyph* newGlyph = new Glyph;
 	newGlyph->texture = texture;
 	newGlyph->depth = depth;

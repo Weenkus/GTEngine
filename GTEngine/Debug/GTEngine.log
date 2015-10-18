@@ -1,38 +1,8 @@
-﻿Build started 2.10.2015. 11:17:17.
+﻿Build started 18.10.2015. 14:37:33.
      1>Project "E:\Programming\Workspace\Projects\Graphics\GTEngine\GTEngine.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
-         E:\Programming\IDE\Visual Studio 2015\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D _DEBUG /D _LIB /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"Debug\\" /Fd"Debug\GTEngine.pdb" /Gd /TP /analyze- /errorReport:prompt Camera2D.cpp Errors.cpp GLSLProgram.cpp GTEngine.cpp ImageLoader.cpp InputManager.cpp IOManager.cpp picoPNG.cpp ResourceManager.cpp Sprite.cpp SpriteBatch.cpp TextureCache.cpp Timing.cpp Vertex.cpp Window.cpp
-         Window.cpp
-         Vertex.cpp
-         Timing.cpp
-     1>e:\programming\workspace\projects\graphics\gtengine\timing.cpp(29): warning C4244: 'initializing': conversion from 'Uint32' to 'float', possible loss of data
-     1>e:\programming\workspace\projects\graphics\gtengine\timing.cpp(32): warning C4244: 'argument': conversion from 'float' to 'Uint32', possible loss of data
-     1>e:\programming\workspace\projects\graphics\gtengine\timing.cpp(44): warning C4244: 'initializing': conversion from 'Uint32' to 'float', possible loss of data
-     1>e:\programming\workspace\projects\graphics\gtengine\timing.cpp(47): warning C4244: '=': conversion from 'Uint32' to 'float', possible loss of data
-         TextureCache.cpp
-     1>e:\programming\workspace\projects\graphics\gtengine\imageloader.h(13): warning C4091: 'static ': ignored on left of 'GTEngine::ImageLoader' when no variable is declared
-         SpriteBatch.cpp
-     1>e:\programming\workspace\projects\graphics\gtengine\spritebatch.cpp(27): warning C4018: '<': signed/unsigned mismatch
-     1>e:\programming\workspace\projects\graphics\gtengine\spritebatch.cpp(69): warning C4018: '<': signed/unsigned mismatch
-     1>e:\programming\workspace\projects\graphics\gtengine\spritebatch.cpp(136): warning C4018: '<': signed/unsigned mismatch
-         Sprite.cpp
-     1>e:\programming\workspace\projects\graphics\gtengine\sprite.cpp(25): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-     1>e:\programming\workspace\projects\graphics\gtengine\sprite.cpp(26): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-     1>e:\programming\workspace\projects\graphics\gtengine\sprite.cpp(27): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-     1>e:\programming\workspace\projects\graphics\gtengine\sprite.cpp(28): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-         ResourceManager.cpp
-         picoPNG.cpp
-         IOManager.cpp
-     1>e:\programming\workspace\projects\graphics\gtengine\iomanager.cpp(20): warning C4244: 'initializing': conversion from 'std::streamoff' to 'int', possible loss of data
-     1>e:\programming\workspace\projects\graphics\gtengine\iomanager.cpp(23): warning C4244: '-=': conversion from 'std::streamoff' to 'int', possible loss of data
+         E:\Programming\IDE\Visual Studio 2015\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D _DEBUG /D _LIB /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"Debug\\" /Fd"Debug\GTEngine.pdb" /Gd /TP /analyze- /errorReport:prompt InputManager.cpp
          InputManager.cpp
-         ImageLoader.cpp
-     1>e:\programming\workspace\projects\graphics\gtengine\imageloader.h(13): warning C4091: 'static ': ignored on left of 'GTEngine::ImageLoader' when no variable is declared
-         GTEngine.cpp
-         GLSLProgram.cpp
-         Errors.cpp
-         Camera2D.cpp
-         Generating Code...
        Lib:
          E:\Programming\IDE\Visual Studio 2015\VC\bin\Lib.exe /OUT:"E:\Programming\Workspace\Projects\Graphics\Debug\GTEngine.lib" /NOLOGO Debug\Camera2D.obj
          Debug\Errors.obj
@@ -54,4 +24,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:08.33
+Time Elapsed 00:00:02.69

@@ -63,14 +63,11 @@ void Human::draw(GTEngine::SpriteBatch& spriteBatch) {
 	glm::vec4 uv(0.0f, 0.0f, 1.0f, 1.0f);
 	static GTEngine::GLTexture texture = GTEngine::ResourceManager::getTexture("Textures/circle.png");
 
-	GTEngine::Color color;
-	color.r = 255;
-	color.g = 5;
-	color.b = 255;
-	color.a = 255;
+	// Set the color to purple
+	GTEngine::ColorRGBA8 colorPurple = GTEngine::ColorRGBA8(255, 5, 255, 255);
 
 	glm::vec4 posAndSize = glm::vec4(_position.x, _position.y, 45, 45);
 
 	// Draw the sprite
-	spriteBatch.draw(posAndSize, uv, texture.id, color, 0.0f);
+	spriteBatch.draw(posAndSize, uv, texture.id, colorPurple, 0.0f);
 }

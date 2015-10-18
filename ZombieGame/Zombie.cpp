@@ -88,14 +88,11 @@ void Zombie::draw(GTEngine::SpriteBatch& spriteBatch) {
 	glm::vec4 uv(0.0f, 0.0f, 1.0f, 1.0f);
 	static GTEngine::GLTexture texture = GTEngine::ResourceManager::getTexture("Textures/circle.png");
 
-	GTEngine::Color color;
-	color.r = 1;
-	color.g = 255;
-	color.b = 50;
-	color.a = 255;
+	// Set the green color
+	GTEngine::ColorRGBA8 colorGreen = GTEngine::ColorRGBA8(1, 255, 50, 255);
 
 	glm::vec4 posAndSize = glm::vec4(_position.x, _position.y, 45, 45);
 
 	// Draw the sprite
-	spriteBatch.draw(posAndSize, uv, texture.id, color, 0.0f);
+	spriteBatch.draw(posAndSize, uv, texture.id, colorGreen, 0.0f);
 }

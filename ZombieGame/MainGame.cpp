@@ -92,6 +92,8 @@ void MainGame::gameLoop() {
 			}
 		}
 
+		_inputManager.update();
+
 		transformHumansToZombies(_humans, _zombies);
 
 		// Render the game
@@ -135,29 +137,30 @@ void MainGame::processInput() {
 	// Allow user movement
 	int bufferSpace = 49;
 	int minBufferSpace = 1;
-	if (_inputManager.isKeyPressed(SDLK_w) && _world.collision(_playerPosition.x, _playerPosition.y + bufferSpace)) {
+	if (_inputManager.isKeyDown(SDLK_w) && _world.collision(_playerPosition.x, _playerPosition.y + bufferSpace)) {
 		_camera.setPosition(_camera.getPosition() + glm::vec2(0.0f, CAMERA_SPEED));
 		_playerPosition.y += CAMERA_SPEED;
 	}
-	if (_inputManager.isKeyPressed(SDLK_s) && _world.collision(_playerPosition.x, _playerPosition.y - minBufferSpace)) {
+	if (_inputManager.isKeyDown(SDLK_s) && _world.collision(_playerPosition.x, _playerPosition.y - minBufferSpace)) {
 		_camera.setPosition(_camera.getPosition() + glm::vec2(0.0f, -CAMERA_SPEED));
 		_playerPosition.y -= CAMERA_SPEED;
 	}
-	if (_inputManager.isKeyPressed(SDLK_a) && _world.collision(_playerPosition.x - minBufferSpace, _playerPosition.y)) {
+	if (_inputManager.isKeyDown(SDLK_a) && _world.collision(_playerPosition.x - minBufferSpace, _playerPosition.y)) {
 		_camera.setPosition(_camera.getPosition() + glm::vec2(-CAMERA_SPEED, 0.0f));
 		_playerPosition.x -= CAMERA_SPEED;
 	}
-	if (_inputManager.isKeyPressed(SDLK_d) && _world.collision(_playerPosition.x + bufferSpace, _playerPosition.y)) {
+	if (_inputManager.isKeyDown(SDLK_d) && _world.collision(_playerPosition.x + bufferSpace, _playerPosition.y)) {
 		_camera.setPosition(_camera.getPosition() + glm::vec2(CAMERA_SPEED, 0.0f));
 		_playerPosition.x += CAMERA_SPEED;
 	}
-	if (_inputManager.isKeyPressed(SDLK_q)) {
+	if (_inputManager.isKeyDown(SDLK_q)) {
 		_camera.setScale(_camera.getScale() + SCALE_SPEED);
 	}
-	if (_inputManager.isKeyPressed(SDLK_e)) {
+	if (_inputManager.isKeyDown(SDLK_e)) {
 		_camera.setScale(_camera.getScale() - SCALE_SPEED);
 	}
 
+	// Shooting bullets
 	if (_inputManager.isKeyPressed(SDL_BUTTON_LEFT)) {
 		// Transfer window coordinates to world coordinates
 		glm::vec2 mouseCoords = _inputManager.getMouseCoords();
@@ -201,7 +204,7 @@ void MainGame::drawGame() {
 	glm::vec4 uv(0.0f, 0.0f, 1.0f, 1.0f);
 	static GTEngine::GLTexture texture = GTEngine::ResourceManager::getTexture("Textures/circle.png");
 
-	GTEngine::Color color;
+	GTEngine::ColorRGBA8 color;
 	color.r = 255;
 	color.b = 100;
 	color.g = 155;

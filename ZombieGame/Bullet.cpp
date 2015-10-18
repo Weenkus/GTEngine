@@ -19,7 +19,7 @@ void Bullet::draw(GTEngine::SpriteBatch& spriteBatch) {
 	glm::vec4 uv(0.0f, 0.0f, 1.0f, 1.0f);
 	static GTEngine::GLTexture texture = GTEngine::ResourceManager::getTexture("Textures/bullet.png");
 
-	GTEngine::Color color;
+	GTEngine::ColorRGBA8 color;
 	color.r = 255;
 	color.g = 255;
 	color.b = 255;

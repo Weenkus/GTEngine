@@ -9,7 +9,14 @@ namespace GTEngine {
 		float y;
 	};
 
-	struct Color {
+	struct ColorRGBA8 {
+
+		// Set the default color to black
+		ColorRGBA8() : r(0), g(0), b(0), a(0) {}
+
+		// Color constructor
+		ColorRGBA8(GLubyte R, GLubyte G, GLubyte B, GLubyte A) : r(R), g(G), b(B), a(A) {}
+
 		GLubyte r;
 		GLubyte g;
 		GLubyte b;
@@ -26,7 +33,7 @@ namespace GTEngine {
 		// We want our vertex memory to be dividable by 4
 	public:
 		Position position;
-		Color color;
+		ColorRGBA8 color;
 
 		// UV texture coordinates
 		UV uv;

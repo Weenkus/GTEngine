@@ -66,7 +66,7 @@ void World::draw(GTEngine::SpriteBatch& spriteBatch) {
 	static GTEngine::GLTexture textureWallLight = GTEngine::ResourceManager::getTexture("Textures/light_bricks.png");
 	static GTEngine::GLTexture textureWallGLass = GTEngine::ResourceManager::getTexture("Textures/glass.png");
 
-	GTEngine::Color color;
+	GTEngine::ColorRGBA8 color;
 	color.r = 255;
 	color.g = 255;
 	color.b = 255;
