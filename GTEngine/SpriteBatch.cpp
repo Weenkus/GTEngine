@@ -23,41 +23,21 @@ void SpriteBatch::begin(GlyphSortType sortType /* GlyphSortType::TEXTURE */) {
 	_sortType = sortType;
 	_renderBatches.clear();
 
-	// Have to delete any glyphs that remain so we don't have memory leaks!
-	for (int i = 0; i < _glyphs.size(); i++) {
-		delete _glyphs[i];
-	}
-
 	_glyphs.clear();
 }
 
 void SpriteBatch::end() {
+	_glyph_pointers.resize(_glyphs.size());
+
+	for (int i{ 0 }; i < _glyphs.size(); ++i)
+		_glyph_pointers[i] = &_glyphs[i];
+
 	sortGlyphs();
 	createRenderBatches();
 }
 
 void SpriteBatch::draw(const glm::vec4& destRec, const glm::vec4& uvRect, GLuint texture, const ColorRGBA8& color, float depth) {
-	Glyph* newGlyph = new Glyph;
-	newGlyph->texture = texture;
-	newGlyph->depth = depth;
-
-	newGlyph->topLeft.color = color;
-	newGlyph->topLeft.setPosition(destRec.x, destRec.y + destRec.w);
-	newGlyph->topLeft.setUV(uvRect.x, uvRect.y + uvRect.w);
-
-	newGlyph->bottomLeft.color = color;
-	newGlyph->bottomLeft.setPosition(destRec.x, destRec.y);
-	newGlyph->bottomLeft.setUV(uvRect.x, uvRect.y);
-
-	newGlyph->bottomRight.color = color;
-	newGlyph->bottomRight.setPosition(destRec.x + destRec.z, destRec.y);
-	newGlyph->bottomRight.setUV(uvRect.x + uvRect.z, uvRect.y);
-
-	newGlyph->topRight.color = color;
-	newGlyph->topRight.setPosition(destRec.x + destRec.z, destRec.y + destRec.w);
-	newGlyph->topRight.setUV(uvRect.x + uvRect.z, uvRect.y + uvRect.w);
-
-	_glyphs.push_back(newGlyph);
+	_glyphs.emplace_back(destRec, uvRect, texture, color, depth);
 }
 
 void SpriteBatch::renderBatch() {
@@ -114,43 +94,43 @@ void SpriteBatch::createRenderBatches() {
 	// it like an array
 	vertices.resize(_glyphs.size() * 6);
 
-	if (_glyphs.empty()) {
+	if (_glyph_pointers.empty()) {
 		return;
 	}
 
 	// Creates a new object with the given parameters
-	_renderBatches.emplace_back(0, 6, _glyphs[0]->texture);
+	_renderBatches.emplace_back(0, 6, _glyph_pointers[0]->texture);
 
 	// Current vertex
 	int cv = 0, offset = 0;
-	vertices[cv++] = _glyphs[0]->topLeft;
-	vertices[cv++] = _glyphs[0]->bottomLeft;
-	vertices[cv++] = _glyphs[0]->bottomRight;
-	vertices[cv++] = _glyphs[0]->bottomRight;
-	vertices[cv++] = _glyphs[0]->topRight;
-	vertices[cv++] = _glyphs[0]->topLeft;
+	vertices[cv++] = _glyph_pointers[0]->topLeft;
+	vertices[cv++] = _glyph_pointers[0]->bottomLeft;
+	vertices[cv++] = _glyph_pointers[0]->bottomRight;
+	vertices[cv++] = _glyph_pointers[0]->bottomRight;
+	vertices[cv++] = _glyph_pointers[0]->topRight;
+	vertices[cv++] = _glyph_pointers[0]->topLeft;
 	offset += 6;
 
 
 	// Current Glyph = cg
-	for (int cg = 1; cg < _glyphs.size(); cg++) {
+	for (int cg = 1; cg < _glyph_pointers.size(); cg++) {
 
 		// Check if this glyph can be part of the current batch
-		if (_glyphs[cg]->texture != _glyphs[cg - 1]->texture) {
+		if (_glyph_pointers[cg]->texture != _glyph_pointers[cg - 1]->texture) {
 			// Creates a new object with the given parameters
-			_renderBatches.emplace_back(offset, 6, _glyphs[cg]->texture);
+			_renderBatches.emplace_back(offset, 6, _glyph_pointers[cg]->texture);
 		}
 		else {
 			// If its part of the current batch, just increase numVertices
 			_renderBatches.back().numVertices += 6;
 		}
 
-		vertices[cv++] = _glyphs[cg]->topLeft;
-		vertices[cv++] = _glyphs[cg]->bottomLeft;
-		vertices[cv++] = _glyphs[cg]->bottomRight;
-		vertices[cv++] = _glyphs[cg]->bottomRight;
-		vertices[cv++] = _glyphs[cg]->topRight;
-		vertices[cv++] = _glyphs[cg]->topLeft;
+		vertices[cv++] = _glyph_pointers[cg]->topLeft;
+		vertices[cv++] = _glyph_pointers[cg]->bottomLeft;
+		vertices[cv++] = _glyph_pointers[cg]->bottomRight;
+		vertices[cv++] = _glyph_pointers[cg]->bottomRight;
+		vertices[cv++] = _glyph_pointers[cg]->topRight;
+		vertices[cv++] = _glyph_pointers[cg]->topLeft;
 
 		offset += 6;
 	}
@@ -172,21 +152,18 @@ void SpriteBatch::sortGlyphs() {
 	// Elements with the same value keep their order => STABLE_SORT
 	switch (_sortType) {
 	case GlyphSortType::BACK_TO_FRONT:
-		std::stable_sort(_glyphs.begin(), _glyphs.end(), 
-			// Lambda expression begins
-			[](Glyph* a, Glyph* b) {
+		std::stable_sort(_glyph_pointers.begin(), _glyph_pointers.end(), [](Glyph* a, Glyph* b) {
 			return (a->depth < b->depth);
-		} /* end of lambda expression*/);
+		});
 		break;
 	case GlyphSortType::FRONT_TO_BACK:
-		std::stable_sort(_glyphs.begin(), _glyphs.end(),
-			[](Glyph* a, Glyph* b) {
+		std::stable_sort(_glyph_pointers.begin(), _glyph_pointers.end(), [](Glyph* a, Glyph* b) 
+		{
 			return (a->depth > b->depth);
 		});
 		break;
 	case GlyphSortType::TEXTURE:
-		std::stable_sort(_glyphs.begin(), _glyphs.end(),
-			[](Glyph* a, Glyph* b) {
+		std::stable_sort(_glyph_pointers.begin(), _glyph_pointers.end(), [](Glyph* a, Glyph* b) {
 			return (a->texture < b->texture);
 		});
 		break;

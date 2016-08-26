@@ -14,7 +14,7 @@
 const float CAMERA_SPEED = 3.0f;
 const float SCALE_SPEED = 0.1f;
 
-MainGame::MainGame() : _screenWidth(1024), _screenHeight(768), _maxFPS(60), _gameState(GameState::PLAY)
+MainGame::MainGame() : _screenWidth(1024), _screenHeight(768), _maxFPS(1000), _gameState(GameState::PLAY)
 {
 	_camera.init(_screenWidth, _screenHeight);
 }

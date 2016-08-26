@@ -12,6 +12,7 @@
 const int MAP_HEIGHT = 32;
 const int MAP_WIDTH = 112;
 
+
 enum direction {LEFT, RIGHT, UP, DOWN};
 
 class World

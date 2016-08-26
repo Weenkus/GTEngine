@@ -5,6 +5,21 @@ e:\programming\workspace\projects\graphics\graphicstutorials\maingame.cpp(62): w
 e:\programming\workspace\projects\graphics\graphicstutorials\maingame.cpp(93): warning C4805: '==': unsafe mix of type 'int' and type 'bool' in operation
 e:\programming\workspace\projects\graphics\graphicstutorials\maingame.cpp(100): warning C4244: 'argument': conversion from 'Sint32' to 'float', possible loss of data
 e:\programming\workspace\projects\graphics\graphicstutorials\maingame.cpp(187): warning C4018: '<': signed/unsigned mismatch
+  main.cpp
   Bullet.cpp
   Generating Code...
+GTEngine.lib(Camera2D.obj) : warning LNK4099: PDB 'GTEngine.pdb' was not found with 'GTEngine.lib(Camera2D.obj)' or at 'E:\Programming\Workspace\Projects\Graphics\Debug\GTEngine.pdb'; linking object as if no debug info
+GTEngine.lib(Errors.obj) : warning LNK4099: PDB 'GTEngine.pdb' was not found with 'GTEngine.lib(Errors.obj)' or at 'E:\Programming\Workspace\Projects\Graphics\Debug\GTEngine.pdb'; linking object as if no debug info
+GTEngine.lib(GLSLProgram.obj) : warning LNK4099: PDB 'GTEngine.pdb' was not found with 'GTEngine.lib(GLSLProgram.obj)' or at 'E:\Programming\Workspace\Projects\Graphics\Debug\GTEngine.pdb'; linking object as if no debug info
+GTEngine.lib(GTEngine.obj) : warning LNK4099: PDB 'GTEngine.pdb' was not found with 'GTEngine.lib(GTEngine.obj)' or at 'E:\Programming\Workspace\Projects\Graphics\Debug\GTEngine.pdb'; linking object as if no debug info
+GTEngine.lib(ImageLoader.obj) : warning LNK4099: PDB 'GTEngine.pdb' was not found with 'GTEngine.lib(ImageLoader.obj)' or at 'E:\Programming\Workspace\Projects\Graphics\Debug\GTEngine.pdb'; linking object as if no debug info
+GTEngine.lib(InputManager.obj) : warning LNK4099: PDB 'GTEngine.pdb' was not found with 'GTEngine.lib(InputManager.obj)' or at 'E:\Programming\Workspace\Projects\Graphics\Debug\GTEngine.pdb'; linking object as if no debug info
+GTEngine.lib(IOManager.obj) : warning LNK4099: PDB 'GTEngine.pdb' was not found with 'GTEngine.lib(IOManager.obj)' or at 'E:\Programming\Workspace\Projects\Graphics\Debug\GTEngine.pdb'; linking object as if no debug info
+GTEngine.lib(picoPNG.obj) : warning LNK4099: PDB 'GTEngine.pdb' was not found with 'GTEngine.lib(picoPNG.obj)' or at 'E:\Programming\Workspace\Projects\Graphics\Debug\GTEngine.pdb'; linking object as if no debug info
+GTEngine.lib(ResourceManager.obj) : warning LNK4099: PDB 'GTEngine.pdb' was not found with 'GTEngine.lib(ResourceManager.obj)' or at 'E:\Programming\Workspace\Projects\Graphics\Debug\GTEngine.pdb'; linking object as if no debug info
+GTEngine.lib(SpriteBatch.obj) : warning LNK4099: PDB 'GTEngine.pdb' was not found with 'GTEngine.lib(SpriteBatch.obj)' or at 'E:\Programming\Workspace\Projects\Graphics\Debug\GTEngine.pdb'; linking object as if no debug info
+GTEngine.lib(TextureCache.obj) : warning LNK4099: PDB 'GTEngine.pdb' was not found with 'GTEngine.lib(TextureCache.obj)' or at 'E:\Programming\Workspace\Projects\Graphics\Debug\GTEngine.pdb'; linking object as if no debug info
+GTEngine.lib(Timing.obj) : warning LNK4099: PDB 'GTEngine.pdb' was not found with 'GTEngine.lib(Timing.obj)' or at 'E:\Programming\Workspace\Projects\Graphics\Debug\GTEngine.pdb'; linking object as if no debug info
+GTEngine.lib(Vertex.obj) : warning LNK4099: PDB 'GTEngine.pdb' was not found with 'GTEngine.lib(Vertex.obj)' or at 'E:\Programming\Workspace\Projects\Graphics\Debug\GTEngine.pdb'; linking object as if no debug info
+GTEngine.lib(Window.obj) : warning LNK4099: PDB 'GTEngine.pdb' was not found with 'GTEngine.lib(Window.obj)' or at 'E:\Programming\Workspace\Projects\Graphics\Debug\GTEngine.pdb'; linking object as if no debug info
   graphicsTutorials.vcxproj -> E:\Programming\Workspace\Projects\Graphics\Debug\graphicsTutorials.exe
