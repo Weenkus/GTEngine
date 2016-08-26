@@ -1,5 +1,2 @@
-﻿  SpriteBatch.cpp
-e:\programming\workspace\projects\graphics\gtengine\spritebatch.cpp(32): warning C4018: '<': signed/unsigned mismatch
-e:\programming\workspace\projects\graphics\gtengine\spritebatch.cpp(49): warning C4018: '<': signed/unsigned mismatch
-e:\programming\workspace\projects\graphics\gtengine\spritebatch.cpp(116): warning C4018: '<': signed/unsigned mismatch
+﻿  Camera2D.cpp
   GTEngine.vcxproj -> E:\Programming\Workspace\Projects\Graphics\Debug\GTEngine.lib

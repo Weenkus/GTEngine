@@ -2,6 +2,8 @@
 
 namespace GTEngine {
 
+	inline bool is_collision(float xDepth, float yDepth);
+
 	Camera2D::Camera2D() : 
 		_screenHeight(500),
 		_screenWidth(500),
@@ -53,6 +55,28 @@ namespace GTEngine {
 		screenCoords += _position;
 		
 		return screenCoords;
+	}
+
+	bool Camera2D::isBoxInView(const glm::vec2 & position, const glm::vec2 & dimensions)
+	{
+		glm::vec2 scaledScreenDimensions = glm::vec2(_screenWidth, _screenHeight) / _scale;
+
+		// The minimum distance before a collision occures
+		const float MIN_DISTANCE_X = dimensions.x / 2.0f + scaledScreenDimensions.x / 2.0f;
+		const float MIN_DISTANCE_Y = dimensions.y / 2.0f + scaledScreenDimensions.y / 2.0f;
+
+		glm::vec2 centerPositionOfBox = position + dimensions / 2.0f;
+		glm::vec2 centerCameraPosition = _position;
+		glm::vec2 distance = centerPositionOfBox - centerCameraPosition;
+
+		float xDepth = MIN_DISTANCE_X - abs(distance.x);
+		float yDepth = MIN_DISTANCE_Y - abs(distance.y);
+
+		return is_collision(xDepth, yDepth);
+	}
+
+	inline bool is_collision(float xDepth, float yDepth) {
+		return xDepth > 0 && yDepth > 0;
 	}
 
 }

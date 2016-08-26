@@ -210,6 +210,7 @@ void MainGame::drawGame() {
 	color.g = 155;
 	color.a = 255;
 
+	const glm::vec2 agentDimensions(49);
 	_spriteBatch.draw(_playerPosition, uv, texture.id, color, 0.0f);
 
 	for (int i = 0; i < _bullets.size(); i++) {
@@ -217,11 +218,13 @@ void MainGame::drawGame() {
 	}
 
 	for (int i = 0; i < _humans.size(); i++) {
-		_humans[i].draw(_spriteBatch);
+		if(_camera.isBoxInView(_humans[i].getPosition(), agentDimensions))
+			_humans[i].draw(_spriteBatch);
 	}
 
 	for (int i = 0; i < _zombies.size(); i++) {
-		_zombies[i].draw(_spriteBatch);
+		if (_camera.isBoxInView(_zombies[i].getPosition(), agentDimensions))
+			_zombies[i].draw(_spriteBatch);
 	}
 
 
