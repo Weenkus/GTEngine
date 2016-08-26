@@ -14,9 +14,10 @@
 const float CAMERA_SPEED = 3.0f;
 const float SCALE_SPEED = 0.1f;
 
-MainGame::MainGame() : _screenWidth(1024), _screenHeight(768), _maxFPS(1000), _gameState(GameState::PLAY)
+MainGame::MainGame() : _screenWidth(1024), _screenHeight(768), _maxFPS(200), _gameState(GameState::PLAY)
 {
 	_camera.init(_screenWidth, _screenHeight);
+	_hudCamera.init(_screenWidth, _screenHeight);
 }
 
 MainGame::~MainGame() {
@@ -32,9 +33,16 @@ void MainGame::initSystems() {
 	GTEngine::init();
 	_window.create("Zombie Game0", _screenWidth, _screenHeight, 0);
 	initShaders();
+
+	// Initialise sprite batches
 	_spriteBatch.init();
+	_hudSpriteBatch.init();
+
 	_fpsLimiter.init(_maxFPS);
 	_world.init();
+
+	// Initialise SpriteFont
+	_spriteFont = new GTEngine::SpriteFont("Fonts/fast99.ttf", 32);
 
 	// Init agents
 	initCameraAndPlayer();
@@ -63,6 +71,8 @@ void MainGame::gameLoop() {
 
 		// Update the game state
 		_camera.update();
+		_hudCamera.update();
+		
 		for (int i = 0; i < _bullets.size();) {
 			if (_bullets[i].update(_world) == true) {	// Erase the bullet 
 				_bullets[i] = _bullets.back();
@@ -93,11 +103,12 @@ void MainGame::gameLoop() {
 		}
 
 		_inputManager.update();
-
+		
 		transformHumansToZombies(_humans, _zombies);
 
 		// Render the game
 		drawGame();
+		
 
 		// Limit and print the FPS
 		float fps = _fpsLimiter.endFrame();
@@ -200,6 +211,7 @@ void MainGame::drawGame() {
 
 	_spriteBatch.begin();
 
+
 	// Player texture
 	glm::vec4 uv(0.0f, 0.0f, 1.0f, 1.0f);
 	static GTEngine::GLTexture texture = GTEngine::ResourceManager::getTexture("Textures/circle.png");
@@ -226,21 +238,50 @@ void MainGame::drawGame() {
 		if (_camera.isBoxInView(_zombies[i].getPosition(), agentDimensions))
 			_zombies[i].draw(_spriteBatch);
 	}
-
-
 	_world.draw(_spriteBatch);
 
+	
+
 	_spriteBatch.end();
+	
 
 	_spriteBatch.renderBatch();
+
+	drawHud();
 
 	glBindTexture(GL_TEXTURE_2D, 0);
 
 
 	_textureProgram.unuse();
-   
+	
     // Swap our buffer and draw everything to the screen!
     _window.swapBuffer();
+}
+
+void MainGame::drawHud()
+{
+	char buffer[256];
+
+	glm::mat4 cameraMatrix = _hudCamera.getCameraMatrix();
+	GLint pLocation = _textureProgram.getUniformLocation("P");		// Set the ortho matrix
+	glUniformMatrix4fv(pLocation, 1, GL_FALSE, &(cameraMatrix[0][0]));		// Upload the matrix to the GPU
+
+	_hudSpriteBatch.begin();
+	{
+		sprintf_s(buffer, "Humans: %d", _humans.size());
+		_spriteFont->draw(_hudSpriteBatch, buffer, glm::vec2(450, 260), glm::vec2(1.0), 0.0f,
+			GTEngine::ColorRGBA8(255, 255, 255, 255), GTEngine::Justification::RIGHT);
+
+		sprintf_s(buffer, "Num Zombies: %d", _zombies.size());
+		_spriteFont->draw(_hudSpriteBatch, buffer, glm::vec2(450, 290), glm::vec2(1.0), 0.0f,
+			GTEngine::ColorRGBA8(255, 255, 255, 255), GTEngine::Justification::RIGHT);
+
+		sprintf_s(buffer, "Num Bullets: %d", _bullets.size());
+		_spriteFont->draw(_hudSpriteBatch, buffer, glm::vec2(450, 320), glm::vec2(1.0), 0.0f,
+			GTEngine::ColorRGBA8(255, 255, 255, 255), GTEngine::Justification::RIGHT);
+	}
+	_hudSpriteBatch.end();
+	_hudSpriteBatch.renderBatch();
 }
 
 void MainGame::printFPS(int numberOfFrames, float fps) {

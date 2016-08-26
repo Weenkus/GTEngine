@@ -25,6 +25,9 @@
     <Filter Include="Sound">
       <UniqueIdentifier>{2a1f69d8-8ca0-4b1b-a640-a848de66d71c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Fonts">
+      <UniqueIdentifier>{caa06399-80eb-4b81-b2d3-3e84f5e166f5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MainGame.cpp">
@@ -103,5 +106,10 @@
     <Media Include="Sound\hoc.mp3">
       <Filter>Sound</Filter>
     </Media>
+  </ItemGroup>
+  <ItemGroup>
+    <Font Include="Fonts\Artesania Display.ttf">
+      <Filter>Fonts</Filter>
+    </Font>
   </ItemGroup>
 </Project>

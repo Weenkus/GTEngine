@@ -8,6 +8,7 @@
 #include <GTEngine/Sprite.h>
 #include <GTEngine/SpriteBatch.h>
 #include <GTEngine/ResourceManager.h>
+#include <GTEngine/SpriteFont.h>
 
 #include "Bullet.h"
 #include "World.h"
@@ -41,6 +42,9 @@ private:
     /// Renders the game
     void drawGame();
 
+	/// Draws the HUD
+	void drawHud();
+
 	/// Tell the users the frame rate of the game
 	void printFPS(int numberOfFrames, float fps);
 
@@ -64,8 +68,10 @@ private:
 	GTEngine::InputManager _inputManager; ///< Handles input
 
 	GTEngine::Camera2D _camera; ///< Main Camera
+	GTEngine::Camera2D _hudCamera;
 
 	GTEngine::SpriteBatch _spriteBatch; ///< Sprite batch
+	GTEngine::SpriteBatch _hudSpriteBatch;
 
 	GTEngine::FpsLimiter _fpsLimiter;	///< FPS limiter
 
@@ -80,5 +86,7 @@ private:
 	float _maxFPS;
 	GameState _gameState;
 	glm::vec4 _playerPosition;
+
+	GTEngine::SpriteFont* _spriteFont;
 };
 
