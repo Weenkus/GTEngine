@@ -14,7 +14,7 @@
 const float CAMERA_SPEED = 3.0f;
 const float SCALE_SPEED = 0.1f;
 
-MainGame::MainGame() : _screenWidth(1024), _screenHeight(768), _maxFPS(200), _gameState(GameState::PLAY)
+MainGame::MainGame()
 {
 	_camera.init(_screenWidth, _screenHeight);
 	_hudCamera.init(_screenWidth, _screenHeight);
@@ -26,11 +26,17 @@ MainGame::~MainGame() {
 
 void MainGame::run() {
 	initSystems();
+
+	GTEngine::Music music = m_audioEngine.loadMusic("Sound/XYZ.ogg");
+	music.play(GTEngine::Music::LoopSetting::FOREVER);
+
 	gameLoop();
 }
 
 void MainGame::initSystems() {
 	GTEngine::init();
+	m_audioEngine.init();
+
 	_window.create("Zombie Game0", _screenWidth, _screenHeight, 0);
 	initShaders();
 
@@ -50,7 +56,7 @@ void MainGame::initSystems() {
 	initZombies();
 
 	// Play Music
-	PlaySound(TEXT("Sound/hoc.wav"), NULL, SND_ASYNC | SND_NOSTOP);
+	//PlaySound(TEXT("Sound/hoc.wav"), NULL, SND_ASYNC | SND_NOSTOP);
 }
 
 void MainGame::initShaders() {
@@ -173,6 +179,9 @@ void MainGame::processInput() {
 
 	// Shooting bullets
 	if (_inputManager.isKeyPressed(SDL_BUTTON_LEFT)) {
+		GTEngine::SoundEffect effect = m_audioEngine.loadSoundEffect("Sound/shots/pistol.wav");
+		effect.play();
+
 		// Transfer window coordinates to world coordinates
 		glm::vec2 mouseCoords = _inputManager.getMouseCoords();
 		mouseCoords = _camera.convertScreenToWorld(mouseCoords);

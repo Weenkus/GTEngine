@@ -1,21 +1,22 @@
 ﻿  MainGame.cpp
 e:\programming\workspace\projects\graphics\gtengine\spritefont.h(36): warning C4099: 'GTEngine::GLTexture': type name first seen using 'struct' now seen using 'class'
   e:\programming\workspace\projects\graphics\gtengine\gltexture.h(7): note: see declaration of 'GTEngine::GLTexture'
-e:\programming\workspace\projects\graphics\zombiegame\maingame.cpp(76): warning C4018: '<': signed/unsigned mismatch
-e:\programming\workspace\projects\graphics\zombiegame\maingame.cpp(85): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
-e:\programming\workspace\projects\graphics\zombiegame\maingame.cpp(86): warning C4018: '<': signed/unsigned mismatch
-e:\programming\workspace\projects\graphics\zombiegame\maingame.cpp(95): warning C4018: '<': signed/unsigned mismatch
-e:\programming\workspace\projects\graphics\zombiegame\maingame.cpp(129): warning C4244: 'argument': conversion from 'Sint32' to 'float', possible loss of data
-e:\programming\workspace\projects\graphics\zombiegame\maingame.cpp(151): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-e:\programming\workspace\projects\graphics\zombiegame\maingame.cpp(155): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-e:\programming\workspace\projects\graphics\zombiegame\maingame.cpp(159): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-e:\programming\workspace\projects\graphics\zombiegame\maingame.cpp(163): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-e:\programming\workspace\projects\graphics\zombiegame\maingame.cpp(228): warning C4018: '<': signed/unsigned mismatch
-e:\programming\workspace\projects\graphics\zombiegame\maingame.cpp(232): warning C4018: '<': signed/unsigned mismatch
+e:\programming\workspace\projects\graphics\zombiegame\maingame.h(12): warning C4067: unexpected tokens following preprocessor directive - expected a newline
+e:\programming\workspace\projects\graphics\zombiegame\maingame.cpp(82): warning C4018: '<': signed/unsigned mismatch
+e:\programming\workspace\projects\graphics\zombiegame\maingame.cpp(91): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+e:\programming\workspace\projects\graphics\zombiegame\maingame.cpp(92): warning C4018: '<': signed/unsigned mismatch
+e:\programming\workspace\projects\graphics\zombiegame\maingame.cpp(101): warning C4018: '<': signed/unsigned mismatch
+e:\programming\workspace\projects\graphics\zombiegame\maingame.cpp(135): warning C4244: 'argument': conversion from 'Sint32' to 'float', possible loss of data
+e:\programming\workspace\projects\graphics\zombiegame\maingame.cpp(157): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+e:\programming\workspace\projects\graphics\zombiegame\maingame.cpp(161): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+e:\programming\workspace\projects\graphics\zombiegame\maingame.cpp(165): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+e:\programming\workspace\projects\graphics\zombiegame\maingame.cpp(169): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
 e:\programming\workspace\projects\graphics\zombiegame\maingame.cpp(237): warning C4018: '<': signed/unsigned mismatch
-e:\programming\workspace\projects\graphics\zombiegame\maingame.cpp(305): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
-e:\programming\workspace\projects\graphics\zombiegame\maingame.cpp(338): warning C4018: '<': signed/unsigned mismatch
-e:\programming\workspace\projects\graphics\zombiegame\maingame.cpp(339): warning C4018: '<': signed/unsigned mismatch
+e:\programming\workspace\projects\graphics\zombiegame\maingame.cpp(241): warning C4018: '<': signed/unsigned mismatch
+e:\programming\workspace\projects\graphics\zombiegame\maingame.cpp(246): warning C4018: '<': signed/unsigned mismatch
+e:\programming\workspace\projects\graphics\zombiegame\maingame.cpp(314): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+e:\programming\workspace\projects\graphics\zombiegame\maingame.cpp(347): warning C4018: '<': signed/unsigned mismatch
+e:\programming\workspace\projects\graphics\zombiegame\maingame.cpp(348): warning C4018: '<': signed/unsigned mismatch
 e:\programming\ide\visual studio 2015\vc\include\xmemory0(655): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
   e:\programming\ide\visual studio 2015\vc\include\xmemory0(773): note: see reference to function template instantiation 'void std::allocator<_Ty>::construct<_Objty,float,float>(_Objty *,float &&,float &&)' being compiled
           with
@@ -53,13 +54,13 @@ e:\programming\ide\visual studio 2015\vc\include\xmemory0(655): warning C4244: '
           [
               _Ty=Zombie
           ]
-  e:\programming\workspace\projects\graphics\zombiegame\maingame.cpp(342): note: see reference to function template instantiation 'void std::vector<Zombie,std::allocator<_Ty>>::emplace_back<T,T>(T &&,T &&)' being compiled
+  e:\programming\workspace\projects\graphics\zombiegame\maingame.cpp(351): note: see reference to function template instantiation 'void std::vector<Zombie,std::allocator<_Ty>>::emplace_back<T,T>(T &&,T &&)' being compiled
           with
           [
               _Ty=Zombie,
               T=float
           ]
-  e:\programming\workspace\projects\graphics\zombiegame\maingame.cpp(342): note: see reference to function template instantiation 'void std::vector<Zombie,std::allocator<_Ty>>::emplace_back<T,T>(T &&,T &&)' being compiled
+  e:\programming\workspace\projects\graphics\zombiegame\maingame.cpp(351): note: see reference to function template instantiation 'void std::vector<Zombie,std::allocator<_Ty>>::emplace_back<T,T>(T &&,T &&)' being compiled
           with
           [
               _Ty=Zombie,

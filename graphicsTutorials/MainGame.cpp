@@ -1,5 +1,5 @@
 #include "MainGame.h"
-#include <GTEngine/Errors.h>
+#include <GTEngine/ErrorHandler.h>
 #include <GTEngine/ImageLoader.h>
 #include <GTEngine/ResourceManager.h>
 

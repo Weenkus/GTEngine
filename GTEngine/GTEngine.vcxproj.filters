@@ -18,9 +18,6 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Errors.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="GLSLProgram.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -66,11 +63,14 @@
     <ClCompile Include="SpriteFont.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="AudioEngine.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ErrorHandler.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Errors.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="GLSLProgram.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -117,6 +117,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="SpriteFont.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="AudioEngine.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ErrorHandler.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

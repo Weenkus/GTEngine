@@ -1,37 +1,8 @@
 ﻿  Window.cpp
-  Vertex.cpp
-  Timing.cpp
-e:\programming\workspace\projects\graphics\gtengine\timing.cpp(29): warning C4244: 'initializing': conversion from 'Uint32' to 'float', possible loss of data
-e:\programming\workspace\projects\graphics\gtengine\timing.cpp(32): warning C4244: 'argument': conversion from 'float' to 'Uint32', possible loss of data
-e:\programming\workspace\projects\graphics\gtengine\timing.cpp(44): warning C4244: 'initializing': conversion from 'Uint32' to 'float', possible loss of data
-e:\programming\workspace\projects\graphics\gtengine\timing.cpp(47): warning C4244: '=': conversion from 'Uint32' to 'float', possible loss of data
-  TextureCache.cpp
-e:\programming\workspace\projects\graphics\gtengine\imageloader.h(13): warning C4091: 'static ': ignored on left of 'GTEngine::ImageLoader' when no variable is declared
-  SpriteFont.cpp
-e:\programming\workspace\projects\graphics\gtengine\spritefont.cpp(37): warning C4316: 'glm::tvec4<int,0>': object allocated on the heap may not be aligned 16
-e:\programming\workspace\projects\graphics\gtengine\spritefont.cpp(97): warning C4018: '<': signed/unsigned mismatch
-e:\programming\workspace\projects\graphics\gtengine\spritefont.cpp(107): warning C4244: '*=': conversion from 'float' to 'unsigned char', possible loss of data
-e:\programming\workspace\projects\graphics\gtengine\spritefont.cpp(142): warning C4316: 'GTEngine::CharGlyph': object allocated on the heap may not be aligned 16
-  SpriteBatch.cpp
-e:\programming\workspace\projects\graphics\gtengine\spritebatch.cpp(32): warning C4018: '<': signed/unsigned mismatch
-e:\programming\workspace\projects\graphics\gtengine\spritebatch.cpp(49): warning C4018: '<': signed/unsigned mismatch
-e:\programming\workspace\projects\graphics\gtengine\spritebatch.cpp(116): warning C4018: '<': signed/unsigned mismatch
-  Sprite.cpp
-e:\programming\workspace\projects\graphics\gtengine\sprite.cpp(25): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-e:\programming\workspace\projects\graphics\gtengine\sprite.cpp(26): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-e:\programming\workspace\projects\graphics\gtengine\sprite.cpp(27): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-e:\programming\workspace\projects\graphics\gtengine\sprite.cpp(28): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-  ResourceManager.cpp
-  picoPNG.cpp
-  IOManager.cpp
-e:\programming\workspace\projects\graphics\gtengine\iomanager.cpp(20): warning C4244: 'initializing': conversion from 'std::streamoff' to 'int', possible loss of data
-e:\programming\workspace\projects\graphics\gtengine\iomanager.cpp(23): warning C4244: '-=': conversion from 'std::streamoff' to 'int', possible loss of data
-  InputManager.cpp
   ImageLoader.cpp
 e:\programming\workspace\projects\graphics\gtengine\imageloader.h(13): warning C4091: 'static ': ignored on left of 'GTEngine::ImageLoader' when no variable is declared
-  GTEngine.cpp
   GLSLProgram.cpp
-  Errors.cpp
-  Camera2D.cpp
+  ErrorHandler.cpp
+  AudioEngine.cpp
   Generating Code...
   GTEngine.vcxproj -> E:\Programming\Workspace\Projects\Graphics\Debug\GTEngine.lib

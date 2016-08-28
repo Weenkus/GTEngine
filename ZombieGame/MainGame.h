@@ -9,6 +9,7 @@
 #include <GTEngine/SpriteBatch.h>
 #include <GTEngine/ResourceManager.h>
 #include <GTEngine/SpriteFont.h>
+#include <GTEngine/AudioEngine.h>|
 
 #include "Bullet.h"
 #include "World.h"
@@ -81,11 +82,13 @@ private:
 	std::vector<Human> _humans;
 	std::vector<Zombie> _zombies;
 
-	int _screenWidth;
-	int _screenHeight;
-	float _maxFPS;
-	GameState _gameState;
+	int _screenWidth{ 1024 };
+	int _screenHeight{ 768 };
+	float _maxFPS{ 200 };
+	GameState _gameState{ GameState::PLAY };
 	glm::vec4 _playerPosition;
+
+	GTEngine::AudioEngine m_audioEngine;
 
 	GTEngine::SpriteFont* _spriteFont;
 };
