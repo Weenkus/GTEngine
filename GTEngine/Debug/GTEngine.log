@@ -1,2 +1,18 @@
-﻿C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V140\Microsoft.CppClean.targets(76,5): warning : The process cannot access the file 'e:\programming\workspace\projects\graphics\debug\gtengine.lib' because it is being used by another process.
-C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V140\Microsoft.CppClean.targets(76,5): warning : The process cannot access the file 'e:\programming\workspace\projects\graphics\debug\gtengine.pdb' because it is being used by another process.
+﻿  Window.cpp
+  Vertex.cpp
+  Timing.cpp
+e:\programming\workspace\projects\graphics\gtengine\timing.cpp(29): warning C4244: 'initializing': conversion from 'Uint32' to 'float', possible loss of data
+e:\programming\workspace\projects\graphics\gtengine\timing.cpp(32): warning C4244: 'argument': conversion from 'float' to 'Uint32', possible loss of data
+e:\programming\workspace\projects\graphics\gtengine\timing.cpp(44): warning C4244: 'initializing': conversion from 'Uint32' to 'float', possible loss of data
+e:\programming\workspace\projects\graphics\gtengine\timing.cpp(47): warning C4244: '=': conversion from 'Uint32' to 'float', possible loss of data
+  TextureCache.cpp
+e:\programming\workspace\projects\graphics\gtengine\imageloader.h(13): warning C4091: 'static ': ignored on left of 'GTEngine::ImageLoader' when no variable is declared
+  Generating Code...
+  Compiling...
+  AudioEngine.cpp
+  Generating Code...
+  Skipping... (no relevant changes detected)
+  SpriteFont.cpp
+  SpriteBatch.cpp
+  Sprite.cpp
+  GTEngine.vcxproj -> E:\Programming\Workspace\Projects\Graphics\Debug\GTEngine.lib

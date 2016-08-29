@@ -8,14 +8,11 @@ namespace GTEngine {
 
 	Sprite::Sprite()
 	{
-		// Initialise the vertex buffer
-		m_vboID = 0;
 	}
 
 
 	Sprite::~Sprite()
 	{
-		// Free the buffer
 		if (m_vboID != 0) {
 			glDeleteBuffers(1, &m_vboID);
 		}

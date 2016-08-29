@@ -50,8 +50,11 @@ public:
 
 class RenderBatch {
 public:
-	RenderBatch(GLuint Offset, GLuint NumVertices, GLuint Texture) : offset(Offset), numVertices(NumVertices), texture(Texture) {
-	}
+	RenderBatch(GLuint Offset, GLuint NumVertices, GLuint Texture) : 
+		offset(Offset),
+		numVertices(NumVertices),
+		texture(Texture) {}
+
 	GLuint offset;
 	GLuint numVertices;
 	GLuint texture;

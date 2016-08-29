@@ -225,11 +225,7 @@ void MainGame::drawGame() {
 	glm::vec4 uv(0.0f, 0.0f, 1.0f, 1.0f);
 	static GTEngine::GLTexture texture = GTEngine::ResourceManager::getTexture("Textures/circle.png");
 
-	GTEngine::ColorRGBA8 color;
-	color.r = 255;
-	color.b = 100;
-	color.g = 155;
-	color.a = 255;
+	GTEngine::ColorRGBA8 color(255, 100, 155, 255);
 
 	const glm::vec2 agentDimensions(49);
 	m_spriteBatch.draw(m_playerPosition, uv, texture.id, color, 0.0f);

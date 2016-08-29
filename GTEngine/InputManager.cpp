@@ -13,7 +13,6 @@ namespace GTEngine {
 
 	void InputManager::update()
 	{
-		// Loop through keyMap using foreach and copy it over to _previousKeyMap
 		for (auto& it : m_keyMap) {
 			m_previousKeyMap[it.first] = it.second;
 		}
@@ -36,18 +35,17 @@ namespace GTEngine {
 	bool InputManager::wasKeyDown(unsigned int keyID)
 	{
 		auto it = m_previousKeyMap.find(keyID);
+		// Found the key
 		if (it != m_previousKeyMap.end()) {
-			// Found the key
 			return it->second;
+		// Didn't find the key
 		} else {
-			// Didn't find the key
 			return false;
 		}
 	}
 
 	bool InputManager::isKeyPressed(unsigned int keyID)
 	{
-		// Check if it was pressed this frame, and wasn't pressed last frame
 		if (isKeyDown(keyID) == true && wasKeyDown(keyID) == false)
 			return true;
 		else
@@ -56,11 +54,11 @@ namespace GTEngine {
 
 	bool InputManager::isKeyDown(unsigned int keyID) {
 		auto it = m_keyMap.find(keyID);
+		// Found the key
 		if (it != m_keyMap.end()) {
-			// Found the key
 			return it->second;
+		// Didn't find the key
 		} else {
-			// Didn't find the key
 			return false;
 		}
 	}

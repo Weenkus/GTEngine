@@ -33,8 +33,7 @@ namespace GTEngine {
 	}
 
 
-	AudioEngine::~AudioEngine()
-	{
+	AudioEngine::~AudioEngine() {
 		destroy();
 	}
 	
@@ -90,7 +89,7 @@ namespace GTEngine {
 			}
 			music.m_music = mixMusic;
 			m_musicCache[filePath] = mixMusic;
-			// Found cache
+		// Found cache
 		}
 		else {
 			music.m_music = it->second;

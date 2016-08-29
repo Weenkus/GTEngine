@@ -33,7 +33,6 @@ namespace GTEngine {
 
 		std::cout << "Used Cached Texture.\n";
 		return mit->second;
-
 	}
 
 }

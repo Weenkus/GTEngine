@@ -34,14 +34,10 @@ namespace GTEngine {
 	public:
 		Position position;
 		ColorRGBA8 color;
-
-		// UV texture coordinates
 		UV uv;
 
 		void setColor(GLubyte r, GLubyte g, GLubyte b, GLubyte a);
-
 		void setPosition(float x, float y);
-
 		void setUV(float u, float v);
 	};
 

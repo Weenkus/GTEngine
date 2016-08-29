@@ -16,7 +16,6 @@ namespace GTEngine {
 		~Window();
 
 		int create(std::string windowName, int screenWidth, int screenHeight, unsigned int currentFlags);
-
 		void swapBuffer();
 
 		int getScreenWidth() const { return m_screenWidth; }

@@ -21,8 +21,7 @@ namespace GTEngine {
 		int m_y;
 		int m_width;
 		int m_height;
-		GLuint m_vboID;		// 32 bits guaranteed
-
+		GLuint m_vboID{ 0 };
 		GLTexture m_texture;
 	};
 

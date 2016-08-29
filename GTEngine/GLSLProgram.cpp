@@ -6,7 +6,7 @@
 
 namespace GTEngine {
 
-	GLSLProgram::GLSLProgram() : m_numAttributes(0), m_programID(0), m_vertexShaderID(0), m_fragmentShaderID(0)
+	GLSLProgram::GLSLProgram()
 	{
 	}
 

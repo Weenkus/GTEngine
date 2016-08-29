@@ -1,7 +1,8 @@
 #pragma once
 
-#include <string>
 #include <GL/glew.h>
+
+#include <string>
 
 namespace GTEngine {
 
@@ -22,13 +23,10 @@ namespace GTEngine {
 		void unuse();
 
 	private:
-
-		int m_numAttributes;
-
-		GLuint m_programID;		// Handel that refers to the entire program
-
-		GLuint m_vertexShaderID;
-		GLuint m_fragmentShaderID;
+		int m_numAttributes{ 0 };
+		GLuint m_programID{ 0 };
+		GLuint m_vertexShaderID{ 0 };
+		GLuint m_fragmentShaderID{ 0 };
 
 	};
 

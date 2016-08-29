@@ -37,9 +37,9 @@ namespace GTEngine {
 	}
 
 	void FpsLimiter::calculateFPS() {
-		static const int NUM_SAMPLES = 100;
+		static const int NUM_SAMPLES{ 100 };
 		static float frameTimes[NUM_SAMPLES];
-		static int currentFrame = 0;
+		static int currentFrame{ 0 };
 
 		static float prevTicks = SDL_GetTicks();
 
@@ -50,7 +50,7 @@ namespace GTEngine {
 		prevTicks = currentTicks;
 		frameTimes[currentFrame % NUM_SAMPLES] = m_frameTime;
 
-		int count;
+		int count{ 0 };
 
 		// The frame circular buffer is not filled
 		++currentFrame;
@@ -64,7 +64,7 @@ namespace GTEngine {
 
 		// Count is the number of frames we want to avergae
 		float frameTimeAverga = 0;
-		for (int i = 0; i < count; i++) {
+		for (int i{ 0 }; i < count; ++i) {
 			frameTimeAverga += frameTimes[i];
 		}
 		frameTimeAverga /= count;

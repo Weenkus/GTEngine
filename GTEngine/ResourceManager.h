@@ -12,7 +12,6 @@ namespace GTEngine {
 		static GLTexture getTexture(std::string texturePath);
 
 	private:
-
 		static TextureCache m_textureCache;
 	};
 

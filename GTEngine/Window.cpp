@@ -15,7 +15,7 @@ namespace GTEngine {
 	int Window::create(std::string windowName, int screenWidth, int screenHeight, unsigned int currentFlags) {
 
 		// Check user flags and set OpenGL flags accordingly
-		Uint32 flags = SDL_WINDOW_OPENGL;
+		Uint32 flags{ SDL_WINDOW_OPENGL };
 
 		if (currentFlags & INVISIBLE) {
 			flags |= SDL_WINDOW_HIDDEN;
