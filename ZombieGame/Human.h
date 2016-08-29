@@ -19,11 +19,10 @@ public:
 	bool update(World& world, std::vector<Bullet>& bullets);
 	void draw(GTEngine::SpriteBatch& spriteBatch);
 
-	// Getters
-	glm::vec2 getPosition() const { return _position;  }
+	glm::vec2 getPosition() const { return m_position;  }
 
 
 private:
-	glm::vec2 _position;
+	glm::vec2 m_position;
 };
 

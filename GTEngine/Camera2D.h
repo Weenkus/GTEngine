@@ -22,21 +22,21 @@ namespace GTEngine {
 		bool isBoxInView(const glm::vec2& position, const glm::vec2& dimensions);
 
 		// Setters
-		void setPosition(const glm::vec2& newPosition) { _position = newPosition; _needsMatrixUpdate = true; }
-		void setScale(float newScale) { _scale = newScale; _needsMatrixUpdate = true; }
+		void setPosition(const glm::vec2& newPosition) { m_position = newPosition; m_needsMatrixUpdate = true; }
+		void setScale(float newScale) { m_scale = newScale; m_needsMatrixUpdate = true; }
 
 		// Getters
-		glm::vec2 getPosition() const { return _position; }
-		float getScale() const { return _scale; }
-		glm::mat4 getCameraMatrix() const { return _cameraMatrix; }
+		glm::vec2 getPosition() const { return m_position; }
+		float getScale() const { return m_scale; }
+		glm::mat4 getCameraMatrix() const { return m_cameraMatrix; }
 
 	private:
-		int _screenWidth, _screenHeight;
-		bool _needsMatrixUpdate;
-		float _scale;
-		glm::vec2 _position;
-		glm::mat4 _cameraMatrix;
-		glm::mat4 _orthoMatrix;
+		int m_screenWidth, _screenHeight;
+		bool m_needsMatrixUpdate;
+		float m_scale;
+		glm::vec2 m_position;
+		glm::mat4 m_cameraMatrix;
+		glm::mat4 m_orthoMatrix;
 	};
 
 }

@@ -27,32 +27,26 @@ public:
 
 	bool collision(int x, int y);
 
+	glm::vec2 getPlayerStartPos() const { return m_playerStart; }
+	int getHumanNumber() const { return m_numHumans; }
+	int getZombieNumber() const { return m_numZombies; }
 
-
-	// getters
-	glm::vec2 getPlayerStartPos() const { return _playerStart; }
-	int getHumanNumber() const { return _numHumans; }
-	int getZombieNumber() const { return _numZombies; }
-
-	// setters
-	void setHumanNumber(int humanNumber) { _numHumans = humanNumber; }
-	void setZombieNumber(int zombieNumber) { _numHumans = zombieNumber; }
+	void setHumanNumber(int humanNumber) { m_numHumans = humanNumber; }
+	void setZombieNumber(int zombieNumber) { m_numHumans = zombieNumber; }
 	
 
 	char world[MAP_HEIGHT][MAP_WIDTH];
 
 private:
 
-	// Memeber function
 	void read();
 	void parse();
 
-	// Fields
-	std::vector<std::string> _textParse;
+	std::vector<std::string> m_textParse;
 
-	int _numHumans;
-	int _numZombies;
+	int m_numHumans;
+	int m_numZombies;
 
-	glm::vec2 _playerStart;
+	glm::vec2 m_playerStart;
 };
 

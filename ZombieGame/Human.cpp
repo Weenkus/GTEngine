@@ -8,8 +8,8 @@
 
 Human::Human(int x, int y)
 {
-	_position.x = x;
-	_position.y = y;
+	m_position.x = x;
+	m_position.y = y;
 }
 
 
@@ -18,8 +18,8 @@ Human::~Human()
 }
 
 void Human::init(int x, int y) {
-	_position.x = x;
-	_position.y = y;
+	m_position.x = x;
+	m_position.y = y;
 }
 
 // Returns true if the human is dead
@@ -29,10 +29,10 @@ bool Human::update(World& world, std::vector<Bullet>& bullets) {
 	for (int i = 0; i < bullets.size(); i++) {
 		int bufferZone = 38;
 		//std::cout << glm::to_string(bullets[i].getPosition()) << " == " << glm::to_string(_position) << std::endl;
-		if ((bullets[i].getPosition().x < _position.x + bufferZone) &&
-			(bullets[i].getPosition().x > _position.x - bufferZone) &&
-			(bullets[i].getPosition().y < _position.y + bufferZone) &&
-			(bullets[i].getPosition().y > _position.y - bufferZone)) {
+		if ((bullets[i].getPosition().x < m_position.x + bufferZone) &&
+			(bullets[i].getPosition().x > m_position.x - bufferZone) &&
+			(bullets[i].getPosition().y < m_position.y + bufferZone) &&
+			(bullets[i].getPosition().y > m_position.y - bufferZone)) {
 			return true;
 		}
 	}
@@ -44,17 +44,17 @@ bool Human::update(World& world, std::vector<Bullet>& bullets) {
 	int direction = rand() % 4 + 0;
 
 	// Move the humans
-	if (direction == 0 && world.collision(_position.x + bufferSpace, _position.y)) {
-		_position.x += moveSpeed;
+	if (direction == 0 && world.collision(m_position.x + bufferSpace, m_position.y)) {
+		m_position.x += moveSpeed;
 	}
-	else if (direction == 1 && world.collision(_position.x - minBufferSpace, _position.y)) {
-		_position.x -= moveSpeed;
+	else if (direction == 1 && world.collision(m_position.x - minBufferSpace, m_position.y)) {
+		m_position.x -= moveSpeed;
 	}
-	else if (direction == 2 && world.collision(_position.x, _position.y + bufferSpace)) {
-		_position.y += moveSpeed;
+	else if (direction == 2 && world.collision(m_position.x, m_position.y + bufferSpace)) {
+		m_position.y += moveSpeed;
 	}
-	else if (direction == 3 && world.collision(_position.x, _position.y - minBufferSpace)) {
-		_position.y -= moveSpeed;
+	else if (direction == 3 && world.collision(m_position.x, m_position.y - minBufferSpace)) {
+		m_position.y -= moveSpeed;
 	}
 	return false;
 }
@@ -66,7 +66,7 @@ void Human::draw(GTEngine::SpriteBatch& spriteBatch) {
 	// Set the color to purple
 	GTEngine::ColorRGBA8 colorPurple = GTEngine::ColorRGBA8(255, 5, 255, 255);
 
-	glm::vec4 posAndSize = glm::vec4(_position.x, _position.y, 45, 45);
+	glm::vec4 posAndSize = glm::vec4(m_position.x, m_position.y, 45, 45);
 
 	// Draw the sprite
 	spriteBatch.draw(posAndSize, uv, texture.id, colorPurple, 0.0f);

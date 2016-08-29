@@ -9,29 +9,29 @@ namespace GTEngine {
 	Sprite::Sprite()
 	{
 		// Initialise the vertex buffer
-		_vboID = 0;
+		m_vboID = 0;
 	}
 
 
 	Sprite::~Sprite()
 	{
 		// Free the buffer
-		if (_vboID != 0) {
-			glDeleteBuffers(1, &_vboID);
+		if (m_vboID != 0) {
+			glDeleteBuffers(1, &m_vboID);
 		}
 	}
 
 	void Sprite::init(float x, float y, float width, float height, std::string texturePath){
-		_x = x;
-		_y = y;
-		_width = width;
-		_height = height;
+		m_x = x;
+		m_y = y;
+		m_width = width;
+		m_height = height;
 
-		_texture = ResourceManager::getTexture(texturePath);
+		m_texture = ResourceManager::getTexture(texturePath);
 
 		// Create the vertex object if it does not exist
-		if (_vboID == 0) {
-			glGenBuffers(1, &_vboID);
+		if (m_vboID == 0) {
+			glGenBuffers(1, &m_vboID);
 		}
 
 		Vertex vertexData[6];	// 6 vertices in 2D space
@@ -64,7 +64,7 @@ namespace GTEngine {
 		vertexData[4].setColor(0, 255, 0, 255);
 
 		// Bind the buffer
-		glBindBuffer(GL_ARRAY_BUFFER, _vboID);
+		glBindBuffer(GL_ARRAY_BUFFER, m_vboID);
 
 		// Upload the data to the GPU (from the CPU)
 		glBufferData(GL_ARRAY_BUFFER, sizeof(vertexData), vertexData, GL_STATIC_DRAW);
@@ -75,10 +75,10 @@ namespace GTEngine {
 
 	void Sprite::draw() {
 
-		glBindTexture(GL_TEXTURE_2D, _texture.id);	// Don't unbind the texture, not sure if other spirtes might use it
+		glBindTexture(GL_TEXTURE_2D, m_texture.id);	// Don't unbind the texture, not sure if other spirtes might use it
 
 		// Bind the buffer
-		glBindBuffer(GL_ARRAY_BUFFER, _vboID);
+		glBindBuffer(GL_ARRAY_BUFFER, m_vboID);
 
 		// Sending one vertex attribute array (we only have position);
 		glEnableVertexAttribArray(0);

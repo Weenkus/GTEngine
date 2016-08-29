@@ -4,7 +4,7 @@
 
 namespace GTEngine {
 
-	SpriteBatch::SpriteBatch() : _vbo(0), _vao(0)
+	SpriteBatch::SpriteBatch() : m_vbo(0), m_vao(0)
 {
 }
 
@@ -20,36 +20,36 @@ void SpriteBatch::init() {
 }
 
 void SpriteBatch::begin(GlyphSortType sortType /* GlyphSortType::TEXTURE */) {
-	_sortType = sortType;
-	_renderBatches.clear();
+	m_sortType = sortType;
+	m_renderBatches.clear();
 
-	_glyphs.clear();
+	m_glyphs.clear();
 }
 
 void SpriteBatch::end() {
-	_glyph_pointers.resize(_glyphs.size());
+	m_glyphPointers.resize(m_glyphs.size());
 
-	for (int i{ 0 }; i < _glyphs.size(); ++i)
-		_glyph_pointers[i] = &_glyphs[i];
+	for (int i{ 0 }; i < m_glyphs.size(); ++i)
+		m_glyphPointers[i] = &m_glyphs[i];
 
 	sortGlyphs();
 	createRenderBatches();
 }
 
 void SpriteBatch::draw(const glm::vec4& destRec, const glm::vec4& uvRect, GLuint texture, const ColorRGBA8& color, float depth) {
-	_glyphs.emplace_back(destRec, uvRect, texture, color, depth);
+	m_glyphs.emplace_back(destRec, uvRect, texture, color, depth);
 }
 
 void SpriteBatch::renderBatch() {
 
 	// Bind our VAO. This sets up the opengl state we need, including the 
 	// vertex attribute pointers and it binds the VBO
-	glBindVertexArray(_vao);
+	glBindVertexArray(m_vao);
 
-	for (int i = 0; i < _renderBatches.size(); i++) {
-		glBindTexture(GL_TEXTURE_2D, _renderBatches[i].texture);
+	for (int i = 0; i < m_renderBatches.size(); i++) {
+		glBindTexture(GL_TEXTURE_2D, m_renderBatches[i].texture);
 
-		glDrawArrays(GL_TRIANGLES, _renderBatches[i].offset, _renderBatches[i].numVertices);
+		glDrawArrays(GL_TRIANGLES, m_renderBatches[i].offset, m_renderBatches[i].numVertices);
 	}
 
 	glBindVertexArray(0);
@@ -58,16 +58,16 @@ void SpriteBatch::renderBatch() {
 void SpriteBatch::createVertexArray() {
 
 	// Generate the VAO and VBO if they are not generated arleady
-	if (_vao == 0) {
-		glGenVertexArrays(1, &_vao);
+	if (m_vao == 0) {
+		glGenVertexArrays(1, &m_vao);
 	}
-	glBindVertexArray(_vao);
+	glBindVertexArray(m_vao);
 
-	if (_vbo == 0) {
-		glGenBuffers(1, &_vbo);
+	if (m_vbo == 0) {
+		glGenBuffers(1, &m_vbo);
 	}
 	// Everytime we rebind vertexAttribArray it is going to automaticly bind the buffer for us (we don't have to call bindBuffer anymore)
-	glBindBuffer(GL_ARRAY_BUFFER, _vbo);
+	glBindBuffer(GL_ARRAY_BUFFER, m_vbo);
 
 	// Sending one vertex attribute array (we only have position);
 	glEnableVertexAttribArray(0);
@@ -92,50 +92,50 @@ void SpriteBatch::createRenderBatches() {
 
 	// Resize the buffer to the exact size we need so we can treat
 	// it like an array
-	vertices.resize(_glyphs.size() * 6);
+	vertices.resize(m_glyphs.size() * 6);
 
-	if (_glyph_pointers.empty()) {
+	if (m_glyphPointers.empty()) {
 		return;
 	}
 
 	// Creates a new object with the given parameters
-	_renderBatches.emplace_back(0, 6, _glyph_pointers[0]->texture);
+	m_renderBatches.emplace_back(0, 6, m_glyphPointers[0]->texture);
 
 	// Current vertex
 	int cv = 0, offset = 0;
-	vertices[cv++] = _glyph_pointers[0]->topLeft;
-	vertices[cv++] = _glyph_pointers[0]->bottomLeft;
-	vertices[cv++] = _glyph_pointers[0]->bottomRight;
-	vertices[cv++] = _glyph_pointers[0]->bottomRight;
-	vertices[cv++] = _glyph_pointers[0]->topRight;
-	vertices[cv++] = _glyph_pointers[0]->topLeft;
+	vertices[cv++] = m_glyphPointers[0]->topLeft;
+	vertices[cv++] = m_glyphPointers[0]->bottomLeft;
+	vertices[cv++] = m_glyphPointers[0]->bottomRight;
+	vertices[cv++] = m_glyphPointers[0]->bottomRight;
+	vertices[cv++] = m_glyphPointers[0]->topRight;
+	vertices[cv++] = m_glyphPointers[0]->topLeft;
 	offset += 6;
 
 
 	// Current Glyph = cg
-	for (int cg = 1; cg < _glyph_pointers.size(); cg++) {
+	for (int cg = 1; cg < m_glyphPointers.size(); cg++) {
 
 		// Check if this glyph can be part of the current batch
-		if (_glyph_pointers[cg]->texture != _glyph_pointers[cg - 1]->texture) {
+		if (m_glyphPointers[cg]->texture != m_glyphPointers[cg - 1]->texture) {
 			// Creates a new object with the given parameters
-			_renderBatches.emplace_back(offset, 6, _glyph_pointers[cg]->texture);
+			m_renderBatches.emplace_back(offset, 6, m_glyphPointers[cg]->texture);
 		}
 		else {
 			// If its part of the current batch, just increase numVertices
-			_renderBatches.back().numVertices += 6;
+			m_renderBatches.back().numVertices += 6;
 		}
 
-		vertices[cv++] = _glyph_pointers[cg]->topLeft;
-		vertices[cv++] = _glyph_pointers[cg]->bottomLeft;
-		vertices[cv++] = _glyph_pointers[cg]->bottomRight;
-		vertices[cv++] = _glyph_pointers[cg]->bottomRight;
-		vertices[cv++] = _glyph_pointers[cg]->topRight;
-		vertices[cv++] = _glyph_pointers[cg]->topLeft;
+		vertices[cv++] = m_glyphPointers[cg]->topLeft;
+		vertices[cv++] = m_glyphPointers[cg]->bottomLeft;
+		vertices[cv++] = m_glyphPointers[cg]->bottomRight;
+		vertices[cv++] = m_glyphPointers[cg]->bottomRight;
+		vertices[cv++] = m_glyphPointers[cg]->topRight;
+		vertices[cv++] = m_glyphPointers[cg]->topLeft;
 
 		offset += 6;
 	}
 
-	glBindBuffer(GL_ARRAY_BUFFER, _vbo);
+	glBindBuffer(GL_ARRAY_BUFFER, m_vbo);
 
 	// Orphan the buffer
 	glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(Vertex), nullptr, GL_DYNAMIC_DRAW);
@@ -150,20 +150,20 @@ void SpriteBatch::createRenderBatches() {
 
 void SpriteBatch::sortGlyphs() {
 	// Elements with the same value keep their order => STABLE_SORT
-	switch (_sortType) {
+	switch (m_sortType) {
 	case GlyphSortType::BACK_TO_FRONT:
-		std::stable_sort(_glyph_pointers.begin(), _glyph_pointers.end(), [](Glyph* a, Glyph* b) {
+		std::stable_sort(m_glyphPointers.begin(), m_glyphPointers.end(), [](Glyph* a, Glyph* b) {
 			return (a->depth < b->depth);
 		});
 		break;
 	case GlyphSortType::FRONT_TO_BACK:
-		std::stable_sort(_glyph_pointers.begin(), _glyph_pointers.end(), [](Glyph* a, Glyph* b) 
+		std::stable_sort(m_glyphPointers.begin(), m_glyphPointers.end(), [](Glyph* a, Glyph* b) 
 		{
 			return (a->depth > b->depth);
 		});
 		break;
 	case GlyphSortType::TEXTURE:
-		std::stable_sort(_glyph_pointers.begin(), _glyph_pointers.end(), [](Glyph* a, Glyph* b) {
+		std::stable_sort(m_glyphPointers.begin(), m_glyphPointers.end(), [](Glyph* a, Glyph* b) {
 			return (a->texture < b->texture);
 		});
 		break;

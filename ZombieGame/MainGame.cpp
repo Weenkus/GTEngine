@@ -16,8 +16,8 @@ const float SCALE_SPEED = 0.1f;
 
 MainGame::MainGame()
 {
-	_camera.init(_screenWidth, _screenHeight);
-	_hudCamera.init(_screenWidth, _screenHeight);
+	m_camera.init(m_screenWidth, m_screenHeight);
+	m_hudCamera.init(m_screenWidth, m_screenHeight);
 }
 
 MainGame::~MainGame() {
@@ -37,18 +37,18 @@ void MainGame::initSystems() {
 	GTEngine::init();
 	m_audioEngine.init();
 
-	_window.create("Zombie Game0", _screenWidth, _screenHeight, 0);
+	m_window.create("Zombie Game0", m_screenWidth, m_screenHeight, 0);
 	initShaders();
 
 	// Initialise sprite batches
-	_spriteBatch.init();
-	_hudSpriteBatch.init();
+	m_spriteBatch.init();
+	m_hudSpriteBatch.init();
 
-	_fpsLimiter.init(_maxFPS);
-	_world.init();
+	m_fpsLimiter.init(m_maxFPS);
+	m_world.init();
 
 	// Initialise SpriteFont
-	_spriteFont = new GTEngine::SpriteFont("Fonts/fast99.ttf", 32);
+	m_spriteFont = new GTEngine::SpriteFont("Fonts/fast99.ttf", 32);
 
 	// Init agents
 	initCameraAndPlayer();
@@ -61,63 +61,63 @@ void MainGame::initSystems() {
 
 void MainGame::initShaders() {
     // Compile our color shader
-    _textureProgram.compileShaders("Shaders/textureShading.vert", "Shaders/textureShading.frag");
-    _textureProgram.addAttribute("vertexPosition");
-    _textureProgram.addAttribute("vertexColor");
-    _textureProgram.addAttribute("vertexUV");
-    _textureProgram.linkShaders();
+    m_textureProgram.compileShaders("Shaders/textureShading.vert", "Shaders/textureShading.frag");
+    m_textureProgram.addAttribute("vertexPosition");
+    m_textureProgram.addAttribute("vertexColor");
+    m_textureProgram.addAttribute("vertexUV");
+    m_textureProgram.linkShaders();
 }
 
 void MainGame::gameLoop() {
-	while (_gameState != GameState::EXIT) {
-		_fpsLimiter.beginFrame();
+	while (m_gameState != GameState::EXIT) {
+		m_fpsLimiter.beginFrame();
 
 		// Process user input
 		processInput();
 
 		// Update the game state
-		_camera.update();
-		_hudCamera.update();
+		m_camera.update();
+		m_hudCamera.update();
 		
-		for (int i = 0; i < _bullets.size();) {
-			if (_bullets[i].update(_world) == true) {	// Erase the bullet 
-				_bullets[i] = _bullets.back();
-				_bullets.pop_back();
+		for (int i = 0; i < m_bullets.size();) {
+			if (m_bullets[i].update(m_world) == true) {	// Erase the bullet 
+				m_bullets[i] = m_bullets.back();
+				m_bullets.pop_back();
 			}
 			else {
 				i++;
 			}
 		}
 		srand(time(NULL));
-		for (int i = 0; i < _humans.size();) {
-			if (_humans[i].update(_world, _bullets) == true) { // Kill the human
-				_humans[i] = _humans.back();
-				_humans.pop_back();
+		for (int i = 0; i < m_humans.size();) {
+			if (m_humans[i].update(m_world, m_bullets) == true) { // Kill the human
+				m_humans[i] = m_humans.back();
+				m_humans.pop_back();
 			}
 			else {
 				i++;
 			}
 		}
-		for (int i = 0; i < _zombies.size();) {
-			if (_zombies[i].update(_world, _bullets, _humans) == true) { // Kill the human
-				_zombies[i] = _zombies.back();
-				_zombies.pop_back();
+		for (int i = 0; i < m_zombies.size();) {
+			if (m_zombies[i].update(m_world, m_bullets, m_humans) == true) { // Kill the human
+				m_zombies[i] = m_zombies.back();
+				m_zombies.pop_back();
 			}
 			else {
 				i++;
 			}
 		}
 
-		_inputManager.update();
+		m_inputManager.update();
 		
-		transformHumansToZombies(_humans, _zombies);
+		transformHumansToZombies(m_humans, m_zombies);
 
 		// Render the game
 		drawGame();
 		
 
 		// Limit and print the FPS
-		float fps = _fpsLimiter.endFrame();
+		float fps = m_fpsLimiter.endFrame();
 		int frameNumber = 200;
 		printFPS(frameNumber, fps);
 	}
@@ -129,24 +129,24 @@ void MainGame::processInput() {
     while (SDL_PollEvent(&evnt)) {
         switch (evnt.type) {
             case SDL_QUIT:
-				_gameState = GameState::EXIT;
+				m_gameState = GameState::EXIT;
                 break;
             case SDL_MOUSEMOTION:
-                _inputManager.setMouseCoords(evnt.motion.x, evnt.motion.y);
+                m_inputManager.setMouseCoords(evnt.motion.x, evnt.motion.y);
                 break;
             case SDL_KEYDOWN:
-                _inputManager.pressKey(evnt.key.keysym.sym);
+                m_inputManager.pressKey(evnt.key.keysym.sym);
                 break;
             case SDL_KEYUP:
-                _inputManager.releaseKey(evnt.key.keysym.sym);
+                m_inputManager.releaseKey(evnt.key.keysym.sym);
                 break;
             case SDL_MOUSEBUTTONDOWN:
-                _inputManager.pressKey(evnt.button.button);
+                m_inputManager.pressKey(evnt.button.button);
 				// Play gunfire
 				//PlaySound(TEXT("Sound/gun.mp3"), NULL, SND_ASYNC);
                 break;
             case SDL_MOUSEBUTTONUP:
-                _inputManager.releaseKey(evnt.button.button);
+                m_inputManager.releaseKey(evnt.button.button);
                 break;
         }
     }
@@ -154,48 +154,48 @@ void MainGame::processInput() {
 	// Allow user movement
 	int bufferSpace = 49;
 	int minBufferSpace = 1;
-	if (_inputManager.isKeyDown(SDLK_w) && _world.collision(_playerPosition.x, _playerPosition.y + bufferSpace)) {
-		_camera.setPosition(_camera.getPosition() + glm::vec2(0.0f, CAMERA_SPEED));
-		_playerPosition.y += CAMERA_SPEED;
+	if (m_inputManager.isKeyDown(SDLK_w) && m_world.collision(m_playerPosition.x, m_playerPosition.y + bufferSpace)) {
+		m_camera.setPosition(m_camera.getPosition() + glm::vec2(0.0f, CAMERA_SPEED));
+		m_playerPosition.y += CAMERA_SPEED;
 	}
-	if (_inputManager.isKeyDown(SDLK_s) && _world.collision(_playerPosition.x, _playerPosition.y - minBufferSpace)) {
-		_camera.setPosition(_camera.getPosition() + glm::vec2(0.0f, -CAMERA_SPEED));
-		_playerPosition.y -= CAMERA_SPEED;
+	if (m_inputManager.isKeyDown(SDLK_s) && m_world.collision(m_playerPosition.x, m_playerPosition.y - minBufferSpace)) {
+		m_camera.setPosition(m_camera.getPosition() + glm::vec2(0.0f, -CAMERA_SPEED));
+		m_playerPosition.y -= CAMERA_SPEED;
 	}
-	if (_inputManager.isKeyDown(SDLK_a) && _world.collision(_playerPosition.x - minBufferSpace, _playerPosition.y)) {
-		_camera.setPosition(_camera.getPosition() + glm::vec2(-CAMERA_SPEED, 0.0f));
-		_playerPosition.x -= CAMERA_SPEED;
+	if (m_inputManager.isKeyDown(SDLK_a) && m_world.collision(m_playerPosition.x - minBufferSpace, m_playerPosition.y)) {
+		m_camera.setPosition(m_camera.getPosition() + glm::vec2(-CAMERA_SPEED, 0.0f));
+		m_playerPosition.x -= CAMERA_SPEED;
 	}
-	if (_inputManager.isKeyDown(SDLK_d) && _world.collision(_playerPosition.x + bufferSpace, _playerPosition.y)) {
-		_camera.setPosition(_camera.getPosition() + glm::vec2(CAMERA_SPEED, 0.0f));
-		_playerPosition.x += CAMERA_SPEED;
+	if (m_inputManager.isKeyDown(SDLK_d) && m_world.collision(m_playerPosition.x + bufferSpace, m_playerPosition.y)) {
+		m_camera.setPosition(m_camera.getPosition() + glm::vec2(CAMERA_SPEED, 0.0f));
+		m_playerPosition.x += CAMERA_SPEED;
 	}
-	if (_inputManager.isKeyDown(SDLK_q)) {
-		_camera.setScale(_camera.getScale() + SCALE_SPEED);
+	if (m_inputManager.isKeyDown(SDLK_q)) {
+		m_camera.setScale(m_camera.getScale() + SCALE_SPEED);
 	}
-	if (_inputManager.isKeyDown(SDLK_e)) {
-		_camera.setScale(_camera.getScale() - SCALE_SPEED);
+	if (m_inputManager.isKeyDown(SDLK_e)) {
+		m_camera.setScale(m_camera.getScale() - SCALE_SPEED);
 	}
 
 	// Shooting bullets
-	if (_inputManager.isKeyPressed(SDL_BUTTON_LEFT)) {
+	if (m_inputManager.isKeyPressed(SDL_BUTTON_LEFT)) {
 		GTEngine::SoundEffect effect = m_audioEngine.loadSoundEffect("Sound/shots/pistol.wav");
 		effect.play();
 
 		// Transfer window coordinates to world coordinates
-		glm::vec2 mouseCoords = _inputManager.getMouseCoords();
-		mouseCoords = _camera.convertScreenToWorld(mouseCoords);
+		glm::vec2 mouseCoords = m_inputManager.getMouseCoords();
+		mouseCoords = m_camera.convertScreenToWorld(mouseCoords);
 		//std::cout << mouseCoords.x << " " << mouseCoords.y << std::endl;
 
 		// Shoot bullets to mouse pointer
 		glm::vec2 playerPosition(0.0f);
-		playerPosition.x = _playerPosition.x;
-		playerPosition.y = _playerPosition.y;
+		playerPosition.x = m_playerPosition.x;
+		playerPosition.y = m_playerPosition.y;
 
 		glm::vec2 direction = mouseCoords - playerPosition;
 		direction = glm::normalize(direction);
 
-		_bullets.emplace_back(playerPosition, direction, 5.01f, 1000);
+		m_bullets.emplace_back(1000, 5.01f, direction, playerPosition);
 	}
 }
 
@@ -206,19 +206,19 @@ void MainGame::drawGame() {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
     // IMPLEMENT THIS!
-	_textureProgram.use();
+	m_textureProgram.use();
 
 	glActiveTexture(GL_TEXTURE0);		// Use only one texture
 
 	// Set uniforms
-	GLint textureLocation = _textureProgram.getUniformLocation("mySampler");
+	GLint textureLocation = m_textureProgram.getUniformLocation("mySampler");
 	glUniform1i(textureLocation, 0);		// Use the above activated texture0
 
-	GLint pLocation = _textureProgram.getUniformLocation("P");		// Set the ortho matrix
-	glm::mat4 cameraMatrix = _camera.getCameraMatrix();
+	GLint pLocation = m_textureProgram.getUniformLocation("P");		// Set the ortho matrix
+	glm::mat4 cameraMatrix = m_camera.getCameraMatrix();
 	glUniformMatrix4fv(pLocation, 1, GL_FALSE, &(cameraMatrix[0][0]));		// Upload the matrix to the GPU
 
-	_spriteBatch.begin();
+	m_spriteBatch.begin();
 
 
 	// Player texture
@@ -232,65 +232,65 @@ void MainGame::drawGame() {
 	color.a = 255;
 
 	const glm::vec2 agentDimensions(49);
-	_spriteBatch.draw(_playerPosition, uv, texture.id, color, 0.0f);
+	m_spriteBatch.draw(m_playerPosition, uv, texture.id, color, 0.0f);
 
-	for (int i = 0; i < _bullets.size(); i++) {
-		_bullets[i].draw(_spriteBatch);
+	for (int i = 0; i < m_bullets.size(); i++) {
+		m_bullets[i].draw(m_spriteBatch);
 	}
 
-	for (int i = 0; i < _humans.size(); i++) {
-		if(_camera.isBoxInView(_humans[i].getPosition(), agentDimensions))
-			_humans[i].draw(_spriteBatch);
+	for (int i = 0; i < m_humans.size(); i++) {
+		if(m_camera.isBoxInView(m_humans[i].getPosition(), agentDimensions))
+			m_humans[i].draw(m_spriteBatch);
 	}
 
-	for (int i = 0; i < _zombies.size(); i++) {
-		if (_camera.isBoxInView(_zombies[i].getPosition(), agentDimensions))
-			_zombies[i].draw(_spriteBatch);
+	for (int i = 0; i < m_zombies.size(); i++) {
+		if (m_camera.isBoxInView(m_zombies[i].getPosition(), agentDimensions))
+			m_zombies[i].draw(m_spriteBatch);
 	}
-	_world.draw(_spriteBatch);
+	m_world.draw(m_spriteBatch);
 
 	
 
-	_spriteBatch.end();
+	m_spriteBatch.end();
 	
 
-	_spriteBatch.renderBatch();
+	m_spriteBatch.renderBatch();
 
 	drawHud();
 
 	glBindTexture(GL_TEXTURE_2D, 0);
 
 
-	_textureProgram.unuse();
+	m_textureProgram.unuse();
 	
     // Swap our buffer and draw everything to the screen!
-    _window.swapBuffer();
+    m_window.swapBuffer();
 }
 
 void MainGame::drawHud()
 {
 	char buffer[256];
 
-	glm::mat4 cameraMatrix = _hudCamera.getCameraMatrix();
-	GLint pLocation = _textureProgram.getUniformLocation("P");		// Set the ortho matrix
+	glm::mat4 cameraMatrix = m_hudCamera.getCameraMatrix();
+	GLint pLocation = m_textureProgram.getUniformLocation("P");		// Set the ortho matrix
 	glUniformMatrix4fv(pLocation, 1, GL_FALSE, &(cameraMatrix[0][0]));		// Upload the matrix to the GPU
 
-	_hudSpriteBatch.begin();
+	m_hudSpriteBatch.begin();
 	{
-		sprintf_s(buffer, "Humans: %d", _humans.size());
-		_spriteFont->draw(_hudSpriteBatch, buffer, glm::vec2(450, 260), glm::vec2(1.0), 0.0f,
+		sprintf_s(buffer, "Humans: %d", m_humans.size());
+		m_spriteFont->draw(m_hudSpriteBatch, buffer, glm::vec2(450, 260), glm::vec2(1.0), 0.0f,
 			GTEngine::ColorRGBA8(255, 255, 255, 255), GTEngine::Justification::RIGHT);
 
-		sprintf_s(buffer, "Num Zombies: %d", _zombies.size());
-		_spriteFont->draw(_hudSpriteBatch, buffer, glm::vec2(450, 290), glm::vec2(1.0), 0.0f,
+		sprintf_s(buffer, "Num Zombies: %d", m_zombies.size());
+		m_spriteFont->draw(m_hudSpriteBatch, buffer, glm::vec2(450, 290), glm::vec2(1.0), 0.0f,
 			GTEngine::ColorRGBA8(255, 255, 255, 255), GTEngine::Justification::RIGHT);
 
-		sprintf_s(buffer, "Num Bullets: %d", _bullets.size());
-		_spriteFont->draw(_hudSpriteBatch, buffer, glm::vec2(450, 320), glm::vec2(1.0), 0.0f,
+		sprintf_s(buffer, "Num Bullets: %d", m_bullets.size());
+		m_spriteFont->draw(m_hudSpriteBatch, buffer, glm::vec2(450, 320), glm::vec2(1.0), 0.0f,
 			GTEngine::ColorRGBA8(255, 255, 255, 255), GTEngine::Justification::RIGHT);
 	}
-	_hudSpriteBatch.end();
-	_hudSpriteBatch.renderBatch();
+	m_hudSpriteBatch.end();
+	m_hudSpriteBatch.renderBatch();
 }
 
 void MainGame::printFPS(int numberOfFrames, float fps) {
@@ -304,10 +304,10 @@ void MainGame::printFPS(int numberOfFrames, float fps) {
 }
 
 void MainGame::initCameraAndPlayer() {
-	glm::vec4 position(_world.getPlayerStartPos().x * 50, _world.getPlayerStartPos().y * 50, 50.0f, 50.0f);
-	_playerPosition = position;
-	glm::vec2 cameraStartingPosition(_world.getPlayerStartPos().x * 50, _world.getPlayerStartPos().y * 50);
-	_camera.setPosition(cameraStartingPosition);
+	glm::vec4 position(m_world.getPlayerStartPos().x * 50, m_world.getPlayerStartPos().y * 50, 50.0f, 50.0f);
+	m_playerPosition = position;
+	glm::vec2 cameraStartingPosition(m_world.getPlayerStartPos().x * 50, m_world.getPlayerStartPos().y * 50);
+	m_camera.setPosition(cameraStartingPosition);
 }
 
 void MainGame::initHumans() {
@@ -318,28 +318,28 @@ void MainGame::initHumans() {
 		int rX = rand() % MAP_WIDTH + 1;
 
 
-		if (_world.world[rX][rY] == 'R' || _world.world[rX][rY] == 'L' || _world.world[rX][rY] == 'G' ||
-			_world.world[rX][rY] == 'B' || _world.world[rX][rY] == 'Z' || _world.world[rX][rY] == '@') {
+		if (m_world.world[rX][rY] == 'R' || m_world.world[rX][rY] == 'L' || m_world.world[rX][rY] == 'G' ||
+			m_world.world[rX][rY] == 'B' || m_world.world[rX][rY] == 'Z' || m_world.world[rX][rY] == '@') {
 			continue;
 		}
 		else {
-			_humans.emplace_back(rX * 50, rY * 50);
+			m_humans.emplace_back(rX * 50, rY * 50);
 			++humansCreated;
 		}
-	} while (humansCreated < _world.getHumanNumber());
+	} while (humansCreated < m_world.getHumanNumber());
 }
 
 void MainGame::initZombies() {
 	int numZombies = 0;
 	for (int i = 0; i < MAP_WIDTH; i++) {
 		for (int j = 0; j < MAP_HEIGHT; j++) {
-			if (_world.world[i][j] == 'Z') {
+			if (m_world.world[i][j] == 'Z') {
 				++numZombies;
-				_zombies.emplace_back(i * 50, j * 50);
+				m_zombies.emplace_back(i * 50, j * 50);
 			}
 		}
 	}
-	_world.setHumanNumber(numZombies);
+	m_world.setHumanNumber(numZombies);
 }
 
 void MainGame::transformHumansToZombies(std::vector<Human>& humans, std::vector<Zombie>& zombies) {

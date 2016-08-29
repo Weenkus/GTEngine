@@ -10,7 +10,7 @@
 class Bullet
 {
 public:
-	Bullet(glm::vec2 post, glm::vec2 dir, float speed, int _lifeTime);
+	Bullet(int lifeTime, float speed, glm::vec2 direction, glm::vec2 position);
 	~Bullet();
 
 	void draw(GTEngine::SpriteBatch& spriteBatch);
@@ -18,14 +18,13 @@ public:
 	// Returns true when we are out of life
 	bool update(World& world);
 
-	// getters
-	glm::vec2 getPosition() const { return _position; }
+	glm::vec2 getPosition() const { return m_position; }
 
 
 private:
-	int _lifeTime;
-	float _speed;
-	glm::vec2 _direction;
-	glm::vec2 _position;
+	int m_lifeTime;
+	float m_speed;
+	glm::vec2 m_direction;
+	glm::vec2 m_position;
 };
 

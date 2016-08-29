@@ -13,7 +13,7 @@ namespace GTEngine {
 
 	private:
 
-		static TextureCache _textureCache;
+		static TextureCache m_textureCache;
 	};
 
 }

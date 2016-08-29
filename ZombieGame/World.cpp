@@ -28,7 +28,7 @@ void World::read() {
 
 		while (getline(myfile, line))
 		{
-			_textParse.push_back(line);
+			m_textParse.push_back(line);
 		}
 		myfile.close();
 	}
@@ -36,13 +36,13 @@ void World::read() {
 
 void  World::parse() {
 	int k = 0;
-	for (std::vector<std::string>::const_iterator i = _textParse.begin(); i != _textParse.end(); ++i) {
+	for (std::vector<std::string>::const_iterator i = m_textParse.begin(); i != m_textParse.end(); ++i) {
 		// Get the number of humans
-		if (i == _textParse.begin()) {
+		if (i == m_textParse.begin()) {
 			std::string number = (*i).substr(8, (*i).size());
 			std::cout << "Humans: " + number + "\n";
 			std::string::size_type sz;   // alias of size_t
-			_numHumans = std::stoi(number, &sz);
+			m_numHumans = std::stoi(number, &sz);
 		}
 		// Create the world
 		else {
@@ -50,8 +50,8 @@ void  World::parse() {
 				world[k][j] = (*i).at(j);
 				// Remember the play starting position
 				if (world[k][j] == '@') {
-					_playerStart.x = j;
-					_playerStart.y = k;
+					m_playerStart.x = j;
+					m_playerStart.y = k;
 				}
 			}
 			++k;

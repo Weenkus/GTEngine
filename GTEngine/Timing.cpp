@@ -15,24 +15,24 @@ namespace GTEngine {
 	}
 
 	void FpsLimiter::setTargetFPS(float maxFPS) {
-		_maxFPS = maxFPS;
+		m_maxFPS = maxFPS;
 	}
 
 	void FpsLimiter::beginFrame() {
-		_startTicks = SDL_GetTicks();
+		m_startTicks = SDL_GetTicks();
 	}
 
 	// Return the current FPS
 	float FpsLimiter::endFrame() {
 		calculateFPS();
 
-		float frameTicks = SDL_GetTicks() - _startTicks;
+		float frameTicks = SDL_GetTicks() - m_startTicks;
 		// Limit the FPS to max FPS
-		if (1000.0f / _maxFPS > frameTicks) {
-			SDL_Delay((1000.0f / _maxFPS) - frameTicks);
+		if (1000.0f / m_maxFPS > frameTicks) {
+			SDL_Delay((1000.0f / m_maxFPS) - frameTicks);
 		}
 
-		return _fps;
+		return m_fps;
 
 	}
 
@@ -46,9 +46,9 @@ namespace GTEngine {
 		float currentTicks;
 		currentTicks = SDL_GetTicks();
 
-		_frameTime = currentTicks - prevTicks;
+		m_frameTime = currentTicks - prevTicks;
 		prevTicks = currentTicks;
-		frameTimes[currentFrame % NUM_SAMPLES] = _frameTime;
+		frameTimes[currentFrame % NUM_SAMPLES] = m_frameTime;
 
 		int count;
 
@@ -71,10 +71,10 @@ namespace GTEngine {
 
 		// Don't devide with zero!
 		if (frameTimeAverga > 0) {
-			_fps = 1000.0f / frameTimeAverga;
+			m_fps = 1000.0f / frameTimeAverga;
 		}
 		else {
-			_fps = 60.0f;		// This should happen only for the first frame
+			m_fps = 60.0f;		// This should happen only for the first frame
 		}
 	}
 

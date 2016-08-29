@@ -1,14 +1,14 @@
 #pragma once
 
-#include <vector>
-#include <glm/glm.hpp>
-
 #include <GTEngine/SpriteBatch.h>
 
+#include <glm/glm.hpp>
+#include <vector>
 
 #include "World.h"
 #include "Bullet.h"
 #include "Human.h"
+
 
 class Zombie
 {
@@ -19,11 +19,9 @@ public:
 	bool update(World& world, std::vector<Bullet>& bullets, std::vector<Human>& humans);
 	void draw(GTEngine::SpriteBatch& spriteBatch);
 
-	// Getters
-	glm::vec2 getPosition() const { return _position;  }
+	glm::vec2 getPosition() const { return m_position;  }
 
 private:
-
-	glm::vec2 _position;
+	glm::vec2 m_position;
 };
 

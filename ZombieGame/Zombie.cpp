@@ -4,8 +4,8 @@
 
 Zombie::Zombie(int x, int y)
 {
-	_position.x = x;
-	_position.y = y;
+	m_position.x = x;
+	m_position.y = y;
 }
 
 
@@ -18,10 +18,10 @@ bool Zombie::update(World& world, std::vector<Bullet>& bullets, std::vector<Huma
 	for (int i = 0; i < bullets.size(); i++) {
 		int bufferZone = 38;
 		//std::cout << glm::to_string(bullets[i].getPosition()) << " == " << glm::to_string(_position) << std::endl;
-		if ((bullets[i].getPosition().x < _position.x + bufferZone) &&
-			(bullets[i].getPosition().x > _position.x - bufferZone) &&
-			(bullets[i].getPosition().y < _position.y + bufferZone) &&
-			(bullets[i].getPosition().y > _position.y - bufferZone)) {
+		if ((bullets[i].getPosition().x < m_position.x + bufferZone) &&
+			(bullets[i].getPosition().x > m_position.x - bufferZone) &&
+			(bullets[i].getPosition().y < m_position.y + bufferZone) &&
+			(bullets[i].getPosition().y > m_position.y - bufferZone)) {
 			return true;
 		}
 	}
@@ -36,7 +36,7 @@ bool Zombie::update(World& world, std::vector<Bullet>& bullets, std::vector<Huma
 	float min = 100000;
 	int indexOfTheClosestZombie = 0;
 	for (int i = 0; i < humans.size(); i++) {
-		float temp = sqrt(pow(humans[i].getPosition().x - _position.x, 2) - pow(humans[i].getPosition().y - _position.y, 2));
+		float temp = sqrt(pow(humans[i].getPosition().x - m_position.x, 2) - pow(humans[i].getPosition().y - m_position.y, 2));
 		if ( temp < min) {
 			min = temp;
 			indexOfTheClosestZombie = i;
@@ -44,41 +44,41 @@ bool Zombie::update(World& world, std::vector<Bullet>& bullets, std::vector<Huma
 	}
 
 	if (min != 100000) {
-		glm::vec2 directionVector = humans[indexOfTheClosestZombie].getPosition() - _position;
+		glm::vec2 directionVector = humans[indexOfTheClosestZombie].getPosition() - m_position;
 		directionVector = glm::normalize(directionVector);
 
-		_position += directionVector * moveSpeed;
-		bool legalAction = world.collision(_position.x + 49, _position.y - 49);
+		m_position += directionVector * moveSpeed;
+		bool legalAction = world.collision(m_position.x + 49, m_position.y - 49);
 		int bufferSpace = 49;
 		int minBufferSpace = 1;
 		if (legalAction == false) {
-			_position -= directionVector * moveSpeed;
-			if (direction == 0 && world.collision(_position.x + bufferSpace, _position.y)) {
-				_position.x += moveSpeed;
+			m_position -= directionVector * moveSpeed;
+			if (direction == 0 && world.collision(m_position.x + bufferSpace, m_position.y)) {
+				m_position.x += moveSpeed;
 			}
-			else if (direction == 1 && world.collision(_position.x - minBufferSpace, _position.y)) {
-				_position.x -= moveSpeed;
+			else if (direction == 1 && world.collision(m_position.x - minBufferSpace, m_position.y)) {
+				m_position.x -= moveSpeed;
 			}
-			else if (direction == 2 && world.collision(_position.x, _position.y + bufferSpace)) {
-				_position.y += moveSpeed;
+			else if (direction == 2 && world.collision(m_position.x, m_position.y + bufferSpace)) {
+				m_position.y += moveSpeed;
 			}
-			else if (direction == 3 && world.collision(_position.x, _position.y - minBufferSpace)) {
-				_position.y -= moveSpeed;
+			else if (direction == 3 && world.collision(m_position.x, m_position.y - minBufferSpace)) {
+				m_position.y -= moveSpeed;
 			}
 		}
 	}
 	else {
-		if (direction == 0 && world.collision(_position.x + bufferSpace, _position.y)) {
-			_position.x += moveSpeed;
+		if (direction == 0 && world.collision(m_position.x + bufferSpace, m_position.y)) {
+			m_position.x += moveSpeed;
 		}
-		else if (direction == 1 && world.collision(_position.x - minBufferSpace, _position.y)) {
-			_position.x -= moveSpeed;
+		else if (direction == 1 && world.collision(m_position.x - minBufferSpace, m_position.y)) {
+			m_position.x -= moveSpeed;
 		}
-		else if (direction == 2 && world.collision(_position.x, _position.y + bufferSpace)) {
-			_position.y += moveSpeed;
+		else if (direction == 2 && world.collision(m_position.x, m_position.y + bufferSpace)) {
+			m_position.y += moveSpeed;
 		}
-		else if (direction == 3 && world.collision(_position.x, _position.y - minBufferSpace)) {
-			_position.y -= moveSpeed;
+		else if (direction == 3 && world.collision(m_position.x, m_position.y - minBufferSpace)) {
+			m_position.y -= moveSpeed;
 		}
 	}
 	return false;
@@ -91,7 +91,7 @@ void Zombie::draw(GTEngine::SpriteBatch& spriteBatch) {
 	// Set the green color
 	GTEngine::ColorRGBA8 colorGreen = GTEngine::ColorRGBA8(1, 255, 50, 255);
 
-	glm::vec4 posAndSize = glm::vec4(_position.x, _position.y, 45, 45);
+	glm::vec4 posAndSize = glm::vec4(m_position.x, m_position.y, 45, 45);
 
 	// Draw the sprite
 	spriteBatch.draw(posAndSize, uv, texture.id, colorGreen, 0.0f);

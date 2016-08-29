@@ -1,5 +1,6 @@
 e:\programming\workspace\projects\graphics\gtengine\debug\gtengine.pdb
 e:\programming\workspace\projects\graphics\gtengine\debug\gtengine.idb
+e:\programming\workspace\projects\graphics\gtengine\debug\audioengine.obj
 e:\programming\workspace\projects\graphics\gtengine\debug\camera2d.obj
 e:\programming\workspace\projects\graphics\gtengine\debug\errors.obj
 e:\programming\workspace\projects\graphics\gtengine\debug\glslprogram.obj
@@ -16,6 +17,12 @@ e:\programming\workspace\projects\graphics\gtengine\debug\texturecache.obj
 e:\programming\workspace\projects\graphics\gtengine\debug\timing.obj
 e:\programming\workspace\projects\graphics\gtengine\debug\vertex.obj
 e:\programming\workspace\projects\graphics\gtengine\debug\window.obj
+e:\programming\workspace\projects\graphics\gtengine\debug\errorhandler.obj
+e:\programming\workspace\projects\graphics\debug\gtengine.lib
+e:\programming\workspace\projects\graphics\debug\gtengine.pdb
 e:\programming\workspace\projects\graphics\gtengine\debug\gtengine.tlog\cl.command.1.tlog
 e:\programming\workspace\projects\graphics\gtengine\debug\gtengine.tlog\cl.read.1.tlog
 e:\programming\workspace\projects\graphics\gtengine\debug\gtengine.tlog\cl.write.1.tlog
+e:\programming\workspace\projects\graphics\gtengine\debug\gtengine.tlog\lib-link.read.1.tlog
+e:\programming\workspace\projects\graphics\gtengine\debug\gtengine.tlog\lib-link.write.1.tlog
+e:\programming\workspace\projects\graphics\gtengine\debug\gtengine.tlog\lib.command.1.tlog

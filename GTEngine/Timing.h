@@ -4,10 +4,9 @@ namespace GTEngine {
 
 	public:
 		FpsLimiter();
+
 		void init(float maxFPS);
-
 		void setTargetFPS(float maxFPS);
-
 		void beginFrame();
 
 		// Return the current FPS
@@ -16,11 +15,11 @@ namespace GTEngine {
 	private:
 		void calculateFPS();
 
-		float _fps;
-		float _frameTime;
-		float _maxFPS;
+		float m_fps;
+		float m_frameTime;
+		float m_maxFPS;
 
-		unsigned int _startTicks;
+		unsigned int m_startTicks;
 	};
 
 }

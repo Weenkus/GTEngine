@@ -35,23 +35,23 @@ private:
 	void processInput();
 	void drawGame();
 
-	GTEngine::Window _window;
-	int _screenWidth;
-	int _screenHeight;
-	GameState _gameState;
+	GTEngine::Window m_window;
+	int m_screenWidth;
+	int m_screenHeight;
+	GameState m_gameState;
 
 	GTEngine::GLSLProgram _colorProgram;
-	GTEngine::Camera2D _camera;
+	GTEngine::Camera2D m_camera;
 
-	GTEngine::SpriteBatch _spriteBatch;
+	GTEngine::SpriteBatch m_spriteBatch;
 
-	GTEngine::InputManager _inputManager;
-	GTEngine::FpsLimiter _fpsLimiter;
+	GTEngine::InputManager m_inputManager;
+	GTEngine::FpsLimiter m_fpsLimiter;
 
-	std::vector<Bullet> _bullets;
+	std::vector<Bullet> m_bullets;
 
-	float _fps;
-	float _maxFPS;
-	float _time;
+	float m_fps;
+	float m_maxFPS;
+	float m_time;
 };
 

@@ -14,17 +14,16 @@ namespace GTEngine {
 		~Sprite();
 
 		void init(float x, float y, float width, float height, std::string texturePath);
-
 		void draw();
 
 	private:
-		int _x;
-		int _y;
-		int _width;
-		int _height;
-		GLuint _vboID;		// 32 bits guaranteed
+		int m_x;
+		int m_y;
+		int m_width;
+		int m_height;
+		GLuint m_vboID;		// 32 bits guaranteed
 
-		GLTexture _texture;
+		GLTexture m_texture;
 	};
 
 }

@@ -1,11 +1,1 @@
-﻿  MainGame.cpp
-e:\programming\workspace\projects\graphics\gtengine\imageloader.h(13): warning C4091: 'static ': ignored on left of 'GTEngine::ImageLoader' when no variable is declared
-e:\programming\workspace\projects\graphics\graphicstutorials\maingame.cpp(58): warning C4305: '+=': truncation from 'double' to 'float'
-e:\programming\workspace\projects\graphics\graphicstutorials\maingame.cpp(62): warning C4018: '<': signed/unsigned mismatch
-e:\programming\workspace\projects\graphics\graphicstutorials\maingame.cpp(93): warning C4805: '==': unsafe mix of type 'int' and type 'bool' in operation
-e:\programming\workspace\projects\graphics\graphicstutorials\maingame.cpp(100): warning C4244: 'argument': conversion from 'Sint32' to 'float', possible loss of data
-e:\programming\workspace\projects\graphics\graphicstutorials\maingame.cpp(187): warning C4018: '<': signed/unsigned mismatch
-  main.cpp
-  Bullet.cpp
-  Generating Code...
-  graphicsTutorials.vcxproj -> E:\Programming\Workspace\Projects\Graphics\Debug\graphicsTutorials.exe
+﻿

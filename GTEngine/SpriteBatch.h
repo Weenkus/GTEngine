@@ -64,12 +64,10 @@ public:
 	~SpriteBatch();
 
 	void init();
-
 	void begin(GlyphSortType sortType = GlyphSortType::TEXTURE);
 	void end();
 
 	void draw(const glm::vec4& destRec, const glm::vec4& uvRect, GLuint texture, const ColorRGBA8& color, float depth);
-
 	void renderBatch();
 
 
@@ -82,14 +80,14 @@ private:
 	static bool compareBackToFront(Glyph* a, Glyph* b);
 	static bool compareTexture(Glyph* a, Glyph* b);
 
-	GLuint _vbo;
-	GLuint _vao;
+	GLuint m_vbo;
+	GLuint m_vao;
 
-	GlyphSortType _sortType;
+	GlyphSortType m_sortType;
 
-	std::vector<Glyph*> _glyph_pointers;	// used for sorting
-	std::vector<Glyph> _glyphs;				// actuall glyphs
-	std::vector<RenderBatch> _renderBatches;
+	std::vector<Glyph*> m_glyphPointers;	// used for sorting
+	std::vector<Glyph> m_glyphs;				// actuall glyphs
+	std::vector<RenderBatch> m_renderBatches;
 
 };
 

@@ -18,14 +18,14 @@ namespace GTEngine {
 	GLTexture TextureCache::getTexture(std::string texturePath){
 
 		// Lookup the texture and see if its in the map
-		auto mit = _textureMap.find(texturePath);		// auto == std::map<std::string, GLTexture>::iterator
+		auto mit = m_textureMap.find(texturePath);		// auto == std::map<std::string, GLTexture>::iterator
 
 		// Check if its not in the map
-		if (mit == _textureMap.end()) {
+		if (mit == m_textureMap.end()) {
 			GLTexture newTexture = ImageLoader::loadPNG(texturePath);
 
 			// Insert the new texture inside the map
-			_textureMap.insert(make_pair(texturePath, newTexture));
+			m_textureMap.insert(make_pair(texturePath, newTexture));
 
 			std::cout << "Loaded Texture.\n";
 			return newTexture;

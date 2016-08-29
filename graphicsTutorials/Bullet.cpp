@@ -4,10 +4,10 @@
 
 Bullet::Bullet(glm::vec2 post, glm::vec2 dir, float speed, int lifeTime)
 {
-	_lifeTime = lifeTime;
-	_position = post;
-	_direction = dir;
-	_speed = speed;
+	m_lifeTime = lifeTime;
+	m_position = post;
+	m_direction = dir;
+	m_speed = speed;
 }
 
 
@@ -25,16 +25,16 @@ void Bullet::draw(GTEngine::SpriteBatch& spriteBatch) {
 	color.b = 255;
 	color.a = 255;
 
-	glm::vec4 posAndSize = glm::vec4(_position.x, _position.y, 30, 30);
+	glm::vec4 posAndSize = glm::vec4(m_position.x, m_position.y, 30, 30);
 
 	// Draw the sprite
 	spriteBatch.draw(posAndSize, uv, texture.id, color, 0.0f);
 }
 
 bool Bullet::update() {
-	_position += _direction * _speed;
-	_lifeTime--;
-	if (_lifeTime == 0)
+	m_position += m_direction * m_speed;
+	m_lifeTime--;
+	if (m_lifeTime == 0)
 		return true;
 	return false;
 }

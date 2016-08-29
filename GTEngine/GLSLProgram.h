@@ -12,11 +12,8 @@ namespace GTEngine {
 		~GLSLProgram();
 
 		void compileShaders(const std::string& vertexShaderFilePath, const std::string& fragmentSaderFilePath);
-
 		void linkShaders();
-
 		void compileShader(const std::string &filePath, GLuint id);
-
 		void addAttribute(const std::string& attributeName);
 
 		GLint getUniformLocation(const std::string& uniformName);
@@ -26,12 +23,12 @@ namespace GTEngine {
 
 	private:
 
-		int _numAttributes;
+		int m_numAttributes;
 
-		GLuint _programID;		// Handel that refers to the entire program
+		GLuint m_programID;		// Handel that refers to the entire program
 
-		GLuint _vertexShaderID;
-		GLuint _fragmentShaderID;
+		GLuint m_vertexShaderID;
+		GLuint m_fragmentShaderID;
 
 	};
 
