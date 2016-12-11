@@ -95,6 +95,9 @@
     <Image Include="Textures\red_bricks.png">
       <Filter>Textures</Filter>
     </Image>
+    <Image Include="Textures\particle.png">
+      <Filter>Textures</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <Media Include="Sound\hoc.wav">

@@ -9,7 +9,9 @@
 #include <GTEngine/SpriteBatch.h>
 #include <GTEngine/ResourceManager.h>
 #include <GTEngine/SpriteFont.h>
-#include <GTEngine/AudioEngine.h>|
+#include <GTEngine/AudioEngine.h>
+#include <GTEngine/ParticalBatch2D.h>
+#include <GTEngine/ParticalEngine2D.h>
 
 #include "Bullet.h"
 #include "World.h"
@@ -76,5 +78,8 @@ private:
 	GTEngine::AudioEngine m_audioEngine;
 
 	GTEngine::SpriteFont* m_spriteFont;
+
+	GTEngine::ParticalEngine2D m_particalEngine;
+	GTEngine::ParticalBatch2D* m_bloodParticalBatch;
 };
 

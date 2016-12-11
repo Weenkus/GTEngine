@@ -57,6 +57,11 @@ void MainGame::initSystems() {
 
 	// Play Music
 	//PlaySound(TEXT("Sound/hoc.wav"), NULL, SND_ASYNC | SND_NOSTOP);
+
+	// Init particales
+	m_bloodParticalBatch = new GTEngine::ParticalBatch2D;
+	m_bloodParticalBatch->init(1000, 0.01f,  GTEngine::ResourceManager::getTexture("Textures/particle.png"));
+	m_particalEngine.addParticalBatch(m_bloodParticalBatch);
 }
 
 void MainGame::initShaders() {
@@ -78,7 +83,7 @@ void MainGame::gameLoop() {
 		// Update the game state
 		m_camera.update();
 		m_hudCamera.update();
-		
+
 		for (int i = 0; i < m_bullets.size();) {
 			if (m_bullets[i].update(m_world) == true) {	// Erase the bullet 
 				m_bullets[i] = m_bullets.back();
@@ -109,6 +114,10 @@ void MainGame::gameLoop() {
 		}
 
 		m_inputManager.update();
+
+		// TODO calculate deltaTime via fps
+		float deltaTime{ 1.0f };
+		m_particalEngine.update(deltaTime);
 		
 		transformHumansToZombies(m_humans, m_zombies);
 
@@ -244,13 +253,11 @@ void MainGame::drawGame() {
 			m_zombies[i].draw(m_spriteBatch);
 	}
 	m_world.draw(m_spriteBatch);
-
-	
-
 	m_spriteBatch.end();
-	
-
 	m_spriteBatch.renderBatch();
+
+	// Render the particles on top of agents
+	m_particalEngine.draw(&m_spriteBatch);
 
 	drawHud();
 
