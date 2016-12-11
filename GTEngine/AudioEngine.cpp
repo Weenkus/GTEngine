@@ -38,6 +38,10 @@ namespace GTEngine {
 	}
 	
 	void AudioEngine::init() {
+		if (m_isInitialized) {
+			fatalError("Tried to initialise audio engine twice.");
+		}
+
 		// Parameter can be a bitwise combination of MIX_INIT_FAC, MIX_INIT_MOD, MIX_INIT_MP3, MIX_INIT_OGG
 		if (Mix_Init(MIX_INIT_MP3 | MIX_INIT_OGG) == -1) {
 			fatalError("Mix_Init error:" + std::string(Mix_GetError()));
@@ -53,6 +57,18 @@ namespace GTEngine {
 	void AudioEngine::destroy() {
 		if (m_isInitialized) {
 			m_isInitialized = false;
+
+			for (auto& it : m_effectCache) {
+				Mix_FreeChunk(it.second);
+			}
+			m_effectCache.clear();
+
+			for (auto& it : m_musicCache) {
+				Mix_FreeMusic(it.second);
+			}
+			m_musicCache.clear();
+
+			Mix_CloseAudio();
 			Mix_Quit();
 		}
 	}
