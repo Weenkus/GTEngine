@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.30501.0
+# Visual Studio 14
+VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "graphicsTutorials", "graphicsTutorials\graphicsTutorials.vcxproj", "{FD7CBB55-B8A3-451D-9ED2-24F1E616781A}"
 	ProjectSection(ProjectDependencies) = postProject
@@ -14,6 +14,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ZombieGame", "ZombieGame\Zo
 	ProjectSection(ProjectDependencies) = postProject
 		{2545C256-C562-4010-A398-06455DC9CA9A} = {2545C256-C562-4010-A398-06455DC9CA9A}
 	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "BallGame", "BallGame\BallGame.vcxproj", "{7C6DD87E-6240-4641-8BF5-D1831AB93C24}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{8E854806-4599-498C-B0CE-668A7B60A1B9}.Debug|Win32.Build.0 = Debug|Win32
 		{8E854806-4599-498C-B0CE-668A7B60A1B9}.Release|Win32.ActiveCfg = Release|Win32
 		{8E854806-4599-498C-B0CE-668A7B60A1B9}.Release|Win32.Build.0 = Release|Win32
+		{7C6DD87E-6240-4641-8BF5-D1831AB93C24}.Debug|Win32.ActiveCfg = Debug|Win32
+		{7C6DD87E-6240-4641-8BF5-D1831AB93C24}.Debug|Win32.Build.0 = Debug|Win32
+		{7C6DD87E-6240-4641-8BF5-D1831AB93C24}.Release|Win32.ActiveCfg = Release|Win32
+		{7C6DD87E-6240-4641-8BF5-D1831AB93C24}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
