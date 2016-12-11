@@ -63,8 +63,8 @@ void MainGame::run() {
 void MainGame::init() {
 	GTEngine::init();
 
-    m_screenWidth = 1920;
-    m_screenHeight = 1080;
+    m_screenWidth = 1920/2;
+    m_screenHeight = 1080/2;
 
     m_window.create("Ball Game", m_screenWidth, m_screenHeight, 0);
     glClearColor(0.0, 0.0, 0.0, 1.0);
@@ -86,7 +86,6 @@ void MainGame::init() {
     m_fpsLimiter.setTargetFPS(60.0f);
 
     initRenderers();
-    
 }
 
 void MainGame::initRenderers() {
@@ -120,12 +119,12 @@ void MainGame::initBalls() {
     // Initialize the grid
     m_grid = std::make_unique<Grid>(m_screenWidth, m_screenHeight, CELL_SIZE);
 
-#define ADD_BALL(p, ...) \
+	#define ADD_BALL(p, ...) \
     totalProbability += p; \
     possibleBalls.emplace_back(__VA_ARGS__);
 
     // Number of balls to spawn
-    const int NUM_BALLS = 20000;
+    const int NUM_BALLS = 500;
 
     // Random engine stuff
     std::mt19937 randomEngine((unsigned int)time(nullptr));
@@ -230,7 +229,7 @@ void MainGame::draw() {
 
     m_textureProgram.unuse();
 
-    m_window.swapBuffer();
+	m_window.swapBuffer();
 }
 
 void MainGame::drawHud() {
