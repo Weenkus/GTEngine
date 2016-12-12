@@ -63,8 +63,8 @@ void MainGame::run() {
 void MainGame::init() {
 	GTEngine::init();
 
-    m_screenWidth = 1920/2;
-    m_screenHeight = 1080/2;
+    m_screenWidth = 1920/1.5;
+    m_screenHeight = 1080/1.5;
 
     m_window.create("Ball Game", m_screenWidth, m_screenHeight, 0);
     glClearColor(0.0, 0.0, 0.0, 1.0);
@@ -124,7 +124,7 @@ void MainGame::initBalls() {
     possibleBalls.emplace_back(__VA_ARGS__);
 
     // Number of balls to spawn
-    const int NUM_BALLS = 500;
+    const int NUM_BALLS = 600;
 
     // Random engine stuff
     std::mt19937 randomEngine((unsigned int)time(nullptr));
