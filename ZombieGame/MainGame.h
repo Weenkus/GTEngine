@@ -47,6 +47,7 @@ private:
 
 
 	void transformHumansToZombies(std::vector<Human>& humans, std::vector<Zombie>& zombies);
+	void addBlood(const glm::vec2& position, int numParticles);
 
 
 	GTEngine::Window m_window;

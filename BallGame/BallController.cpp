@@ -1,6 +1,11 @@
 #include "BallController.h"
-
+#include <random>
+#include <ctime>
+#include <glm/gtx/rotate_vector.hpp>
+#include <GTEngine/Vertex.h>
 #include "Grid.h"
+#include <iostream>
+
 
 void BallController::updateBalls(std::vector <Ball>& balls, Grid* grid, float deltaTime, int maxX, int maxY) {
     const float FRICTION = 0.01f;
@@ -144,6 +149,21 @@ void BallController::checkCollision(Ball& b1, Ball& b2) {
         // Push away the balls based on ratio of masses
         b1.position -= distDir * collisionDepth * (b2.mass / b1.mass) * 0.5f;
         b2.position += distDir * collisionDepth * (b1.mass / b2.mass) * 0.5f;
+
+		// PARTICLES
+		static std::mt19937 randEngine(time(nullptr));
+		static std::uniform_real_distribution<float> randAngle(0.0f, 2.0f * 3.14);
+
+		glm::vec2 position(50.0f, 20.f);
+		glm::vec2 vel(0.2f, 0.0f);
+		GTEngine::ColorRGBA8 color(255, 0, 0, 255);
+
+		int num_particles{ 5 };
+
+		for (int i{ 0 }; i < num_particles; ++i) {
+			//std::cout << "PARTICLE";
+			m_particalBatch->addPartical(position, glm::rotate(vel, randAngle(randEngine)), color, 15.0f);
+		}
        
         // Calculate deflection. http://stackoverflow.com/a/345863
         // Fixed thanks to youtube user Sketchy502

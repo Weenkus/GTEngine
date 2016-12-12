@@ -1,7 +1,7 @@
 #pragma once
 
 #include <vector>
-
+#include <GTEngine/ParticalBatch2D.h>
 #include "Ball.h"
 
 enum class GravityDirection {NONE, LEFT, UP, RIGHT, DOWN};
@@ -17,6 +17,10 @@ public:
     void onMouseUp(std::vector <Ball>& balls);
     void onMouseMove(std::vector <Ball>& balls, float mouseX, float mouseY);
     void setGravityDirection(GravityDirection dir) { m_gravityDirection = dir; }
+
+
+	void registerParticalBatch(GTEngine::ParticalBatch2D* particalBatch) { m_particalBatch = particalBatch; }
+
 private:
     // Updates collision
     void updateCollision(Grid* grid);
@@ -33,5 +37,7 @@ private:
     glm::vec2 m_grabOffset = glm::vec2(0.0f); ///< Offset of the cursor on the selected ball
 
     GravityDirection m_gravityDirection = GravityDirection::NONE;
+
+	GTEngine::ParticalBatch2D* m_particalBatch;
 };
 

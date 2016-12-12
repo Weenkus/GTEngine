@@ -1,11 +1,15 @@
 #include "MainGame.h"
 
 #include <GTEngine/GTEngine.h>
-
+#include <GTEngine/ResourceManager.h>
+#include <glm/gtx/rotate_vector.hpp>
 #include <SDL/SDL.h>
 
+#include <random>
+#include <ctime>
+#include <algorithm>
+#include <cmath>
 #include <iostream>
-#include <time.h>
 
 // For sound
 #include <Windows.h>
@@ -104,7 +108,7 @@ void MainGame::gameLoop() {
 			}
 		}
 		for (int i = 0; i < m_zombies.size();) {
-			if (m_zombies[i].update(m_world, m_bullets, m_humans) == true) { // Kill the human
+			if (m_zombies[i].update(m_world, m_bullets, m_humans) == true) { // Kill the zombie
 				m_zombies[i] = m_zombies.back();
 				m_zombies.pop_back();
 			}
@@ -201,6 +205,8 @@ void MainGame::processInput() {
 		playerPosition.x = m_playerPosition.x;
 		playerPosition.y = m_playerPosition.y;
 
+		addBlood(playerPosition, 5);
+
 		glm::vec2 direction = mouseCoords - playerPosition;
 		direction = glm::normalize(direction);
 
@@ -256,8 +262,15 @@ void MainGame::drawGame() {
 	m_spriteBatch.end();
 	m_spriteBatch.renderBatch();
 
+
+	m_spriteBatch.begin();
+	
 	// Render the particles on top of agents
 	m_particalEngine.draw(&m_spriteBatch);
+
+	m_spriteBatch.end();
+	m_spriteBatch.renderBatch();
+
 
 	drawHud();
 
@@ -357,4 +370,13 @@ void MainGame::transformHumansToZombies(std::vector<Human>& humans, std::vector<
 			}
 		}
 	}
+}
+
+void MainGame::addBlood(const glm::vec2& position, int numParticles) {
+	static std::mt19937 randEngine(time(nullptr));
+	static std::uniform_real_distribution<float> randAngle(0.0f, 2.0f * 3.14);
+
+	glm::vec2 vel(0.5f, 0.0f);
+	GTEngine::ColorRGBA8 color(255, 255, 0, 255);
+	m_bloodParticalBatch->addPartical(position, glm::rotate(vel, randAngle(randEngine)), color, 10.0f);
 }

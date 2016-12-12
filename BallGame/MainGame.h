@@ -7,6 +7,8 @@
 #include <GTEngine/GLSLProgram.h>
 #include <GTEngine/Timing.h>
 #include <GTEngine/SpriteFont.h>
+#include <GTEngine/ParticalBatch2D.h>
+#include <GTEngine/ParticalEngine2D.h>
 #include <memory>
 
 #include "BallController.h"
@@ -59,5 +61,9 @@ private:
     float m_fps = 0.0f;
 
     GameState m_gameState = GameState::RUNNING; ///< The state of the game
+
+	// Partical engine
+	GTEngine::ParticalEngine2D m_particalEngine;
+	GTEngine::ParticalBatch2D* m_collisionParticalBatch;
 };
 

@@ -86,6 +86,11 @@ void MainGame::init() {
     m_fpsLimiter.setTargetFPS(60.0f);
 
     initRenderers();
+
+	// Initialise particles
+	m_collisionParticalBatch = new GTEngine::ParticalBatch2D();
+	m_collisionParticalBatch->init(100, 0.01f, GTEngine::ResourceManager::getTexture("Textures/particle.png"));
+	m_particalEngine.addParticalBatch(m_collisionParticalBatch);
 }
 
 void MainGame::initRenderers() {
@@ -124,7 +129,7 @@ void MainGame::initBalls() {
     possibleBalls.emplace_back(__VA_ARGS__);
 
     // Number of balls to spawn
-    const int NUM_BALLS = 600;
+    const int NUM_BALLS = 500;
 
     // Random engine stuff
     std::mt19937 randomEngine((unsigned int)time(nullptr));
@@ -196,11 +201,16 @@ void MainGame::initBalls() {
                              ballToSpawn->color);
         // Add the ball do the grid. IF YOU EVER CALL EMPLACE BACK AFTER INIT BALLS, m_grid will have DANGLING POINTERS!
         m_grid->addBall(&m_balls.back());
+
+
+
+		m_ballController.registerParticalBatch(m_collisionParticalBatch);
     }
 }
 
 void MainGame::update(float deltaTime) {
     m_ballController.updateBalls(m_balls, m_grid.get(), deltaTime, m_screenWidth, m_screenHeight);
+	m_particalEngine.update(deltaTime);
 }
 
 void MainGame::draw() {
@@ -224,6 +234,9 @@ void MainGame::draw() {
 
     GLint pUniform = m_textureProgram.getUniformLocation("P");
     glUniformMatrix4fv(pUniform, 1, GL_FALSE, &projectionMatrix[0][0]);
+
+	// Draw particles
+	m_particalEngine.draw(&m_spriteBatch);
 
     drawHud();
 

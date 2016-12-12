@@ -99,6 +99,7 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="Textures\circle.png" />
+    <Image Include="Textures\particle.png" />
   </ItemGroup>
   <ItemGroup>
     <Font Include="Fonts\chintzy.ttf" />

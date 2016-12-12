@@ -78,6 +78,9 @@
     <Image Include="Textures\circle.png">
       <Filter>Textures</Filter>
     </Image>
+    <Image Include="Textures\particle.png">
+      <Filter>Textures</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <Font Include="Fonts\chintzy.ttf">
