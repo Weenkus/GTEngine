@@ -27,7 +27,7 @@ bool Human::update(World& world, std::vector<Bullet>& bullets) {
 
 	// Check if the human should die
 	for (int i = 0; i < bullets.size(); i++) {
-		int bufferZone = 38;
+		int bufferZone = 30;
 		//std::cout << glm::to_string(bullets[i].getPosition()) << " == " << glm::to_string(_position) << std::endl;
 		if ((bullets[i].getPosition().x < m_position.x + bufferZone) &&
 			(bullets[i].getPosition().x > m_position.x - bufferZone) &&
@@ -38,24 +38,30 @@ bool Human::update(World& world, std::vector<Bullet>& bullets) {
 	}
 
 	// Initialise variables
-	int bufferSpace = 49;
-	int minBufferSpace = 1;
-	int moveSpeed = 1;
-	int direction = rand() % 4 + 0;
+	int bufferSpace{ 49 };
+	int minBufferSpace{ 1 };
+	int moveSpeed{ 1 };
+	int chaos{ 2 };
 
-	// Move the humans
-	if (direction == 0 && world.collision(m_position.x + bufferSpace, m_position.y)) {
-		m_position.x += moveSpeed;
+	
+	for (int i{ 0 }; i < chaos; ++i) {
+		int direction = rand() % 4 + 0;
+		// Move the humans
+		if (direction == 0 && world.collision(m_position.x + bufferSpace, m_position.y)) {
+			m_position.x += moveSpeed;
+		}
+		else if (direction == 1 && world.collision(m_position.x - minBufferSpace, m_position.y)) {
+			m_position.x -= moveSpeed;
+		}
+		else if (direction == 2 && world.collision(m_position.x, m_position.y + bufferSpace)) {
+			m_position.y += moveSpeed;
+		}
+		else if (direction == 3 && world.collision(m_position.x, m_position.y - minBufferSpace)) {
+			m_position.y -= moveSpeed;
+		}
+
 	}
-	else if (direction == 1 && world.collision(m_position.x - minBufferSpace, m_position.y)) {
-		m_position.x -= moveSpeed;
-	}
-	else if (direction == 2 && world.collision(m_position.x, m_position.y + bufferSpace)) {
-		m_position.y += moveSpeed;
-	}
-	else if (direction == 3 && world.collision(m_position.x, m_position.y - minBufferSpace)) {
-		m_position.y -= moveSpeed;
-	}
+
 	return false;
 }
 

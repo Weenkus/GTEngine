@@ -47,7 +47,9 @@ private:
 
 
 	void transformHumansToZombies(std::vector<Human>& humans, std::vector<Zombie>& zombies);
-	void addBlood(const glm::vec2& position, int numParticles);
+	void addCasings(const glm::vec2& position, int numParticles);
+	void MainGame::addBlood(const glm::vec2& position, int numParticles);
+	bool muzzleFlash{ false };
 
 
 	GTEngine::Window m_window;
@@ -72,7 +74,7 @@ private:
 
 	int m_screenWidth{ 1024 };
 	int m_screenHeight{ 768 };
-	float m_maxFPS{ 200 };
+	float m_maxFPS{ 50 };
 	GameState m_gameState{ GameState::PLAY };
 	glm::vec4 m_playerPosition;
 
@@ -81,6 +83,7 @@ private:
 	GTEngine::SpriteFont* m_spriteFont;
 
 	GTEngine::ParticalEngine2D m_particalEngine;
+	GTEngine::ParticalBatch2D* m_casingParticalBatch;
 	GTEngine::ParticalBatch2D* m_bloodParticalBatch;
 };
 

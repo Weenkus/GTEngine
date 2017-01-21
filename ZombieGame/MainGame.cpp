@@ -62,9 +62,14 @@ void MainGame::initSystems() {
 	// Play Music
 	//PlaySound(TEXT("Sound/hoc.wav"), NULL, SND_ASYNC | SND_NOSTOP);
 
-	// Init particales
+	// Init casing particales
+	m_casingParticalBatch = new GTEngine::ParticalBatch2D;
+	m_casingParticalBatch->init(100, 0.01f,  GTEngine::ResourceManager::getTexture("Textures/particle.png"));
+	m_particalEngine.addParticalBatch(m_casingParticalBatch);
+
+	// Init blood particles
 	m_bloodParticalBatch = new GTEngine::ParticalBatch2D;
-	m_bloodParticalBatch->init(1000, 0.01f,  GTEngine::ResourceManager::getTexture("Textures/particle.png"));
+	m_bloodParticalBatch->init(100, 0.01f, GTEngine::ResourceManager::getTexture("Textures/bullet.png"));
 	m_particalEngine.addParticalBatch(m_bloodParticalBatch);
 }
 
@@ -101,6 +106,7 @@ void MainGame::gameLoop() {
 		for (int i = 0; i < m_humans.size();) {
 			if (m_humans[i].update(m_world, m_bullets) == true) { // Kill the human
 				m_humans[i] = m_humans.back();
+				//addBlood(m_humans.back().getPosition(), 5);
 				m_humans.pop_back();
 			}
 			else {
@@ -110,6 +116,7 @@ void MainGame::gameLoop() {
 		for (int i = 0; i < m_zombies.size();) {
 			if (m_zombies[i].update(m_world, m_bullets, m_humans) == true) { // Kill the zombie
 				m_zombies[i] = m_zombies.back();
+				//addBlood(m_zombies.back().getPosition(), 5);
 				m_zombies.pop_back();
 			}
 			else {
@@ -128,7 +135,6 @@ void MainGame::gameLoop() {
 		// Render the game
 		drawGame();
 		
-
 		// Limit and print the FPS
 		float fps = m_fpsLimiter.endFrame();
 		int frameNumber = 200;
@@ -205,12 +211,15 @@ void MainGame::processInput() {
 		playerPosition.x = m_playerPosition.x;
 		playerPosition.y = m_playerPosition.y;
 
-		addBlood(playerPosition, 5);
+		addCasings(playerPosition, 1);
+		
 
 		glm::vec2 direction = mouseCoords - playerPosition;
 		direction = glm::normalize(direction);
 
 		m_bullets.emplace_back(1000, 5.01f, direction, playerPosition);
+
+		muzzleFlash = true;
 	}
 }
 
@@ -258,6 +267,19 @@ void MainGame::drawGame() {
 		if (m_camera.isBoxInView(m_zombies[i].getPosition(), agentDimensions))
 			m_zombies[i].draw(m_spriteBatch);
 	}
+
+	// Draw muzzle flash
+	if (muzzleFlash == true) {
+
+		glm::vec4 uv(0.0f, 0.0f, 1.0f, 1.0f);
+		static GTEngine::GLTexture texture = GTEngine::ResourceManager::getTexture("Textures/circle.png");
+		GTEngine::ColorRGBA8 colorGreen = GTEngine::ColorRGBA8(255, 255, 50, 255);
+		glm::vec4 posAndSize = glm::vec4(m_playerPosition.x, m_playerPosition.y, 25, 25);
+		m_spriteBatch.draw(posAndSize, uv, texture.id, colorGreen, 0.0f);
+
+		muzzleFlash = false;
+	}
+
 	m_world.draw(m_spriteBatch);
 	m_spriteBatch.end();
 	m_spriteBatch.renderBatch();
@@ -372,11 +394,24 @@ void MainGame::transformHumansToZombies(std::vector<Human>& humans, std::vector<
 	}
 }
 
+void MainGame::addCasings(const glm::vec2& position, int numParticles) {
+	static std::mt19937 randEngine(time(nullptr));
+	static std::uniform_real_distribution<float> randAngle(0.0f, 2.0f * 3.14);
+
+	glm::vec2 vel(1.5f, 0.0f);
+	GTEngine::ColorRGBA8 color(255, 255, 0, 255);
+
+	for (int i{ 0 }; i < numParticles; ++i)
+		m_casingParticalBatch->addPartical(position, glm::rotate(vel, randAngle(randEngine)), color, 10.0f);
+}
+
 void MainGame::addBlood(const glm::vec2& position, int numParticles) {
 	static std::mt19937 randEngine(time(nullptr));
 	static std::uniform_real_distribution<float> randAngle(0.0f, 2.0f * 3.14);
 
 	glm::vec2 vel(0.5f, 0.0f);
-	GTEngine::ColorRGBA8 color(255, 255, 0, 255);
-	m_bloodParticalBatch->addPartical(position, glm::rotate(vel, randAngle(randEngine)), color, 10.0f);
+	GTEngine::ColorRGBA8 color(255, 0, 0, 200);
+
+	for (int i{ 0 }; i < numParticles; ++i)
+		m_casingParticalBatch->addPartical(position, glm::rotate(vel, randAngle(randEngine)), color, 10.0f);
 }

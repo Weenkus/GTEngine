@@ -35,13 +35,17 @@ bool Zombie::update(World& world, std::vector<Bullet>& bullets, std::vector<Huma
 	// Chase the humans (chase the closest human)
 	float min = 100000;
 	int indexOfTheClosestZombie = 0;
-	for (int i = 0; i < humans.size(); i++) {
-		float temp = sqrt(pow(humans[i].getPosition().x - m_position.x, 2) - pow(humans[i].getPosition().y - m_position.y, 2));
-		if ( temp < min) {
-			min = temp;
-			indexOfTheClosestZombie = i;
+
+	if (rand() % 3 == 0) {
+		for (int i = 0; i < humans.size(); i++) {
+			float temp = sqrt(pow(humans[i].getPosition().x - m_position.x, 2) - pow(humans[i].getPosition().y - m_position.y, 2));
+			if (temp < min) {
+				min = temp;
+				indexOfTheClosestZombie = i;
+			}
 		}
 	}
+
 
 	if (min != 100000) {
 		glm::vec2 directionVector = humans[indexOfTheClosestZombie].getPosition() - m_position;
